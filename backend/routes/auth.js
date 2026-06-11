@@ -103,6 +103,74 @@ router.get('/current', isAuth(), (req, res) => {
 });
 
 
+//get all users
+
+router.get("/", async (req, res) => {
+    try {
+
+        let result = await User.find();
+        res.send({ users: result, msg: "all users" })
+
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+
+
+//find user By Id
+
+
+router.get("/:id", async (req, res) => {
+    try {
+
+        let result = await User.findById(req.params.id);
+        res.send({ user: result, msg: "one user" })
+
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+
+
+
+//delete user
+
+router.delete("/:id", async (req, res) => {
+    try {
+
+        let result = await User.findByIdAndDelete(req.params.id);
+        res.send({ msg: "user is deleted" })
+
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+
+//edit user
+
+router.put("/:id", async (req, res) => {
+    try {
+
+        let result = await User.findByIdAndUpdate(
+            { _id: req.params.id }, { $set: { ...req.body } }
+        );
+        res.send({ msg: "user is edited" })
+
+
+    } catch (error) {
+        console.log(error)
+    }
+
+})
+
+
+
 
 
 module.exports = router;
