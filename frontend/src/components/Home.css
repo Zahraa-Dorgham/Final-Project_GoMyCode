@@ -11,12 +11,16 @@
     width: 100%;
     min-height: 100vh;
 
+    
+    /* Image de la femme avec effet vibrant */
     background-image: url("https://themes.themegoods.com/vive/wp-content/uploads/2021/09/sportive-woman-training-TDRLHDD.jpg");
     background-size: cover;
-    background-position: right top;
+    background-position: right center;
     background-repeat: no-repeat;
 
-    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%) !important;
+
+    /* Angle prononcé en bas */
+    clip-path: polygon(0 5%, 100% 0, 100% 85%, 0 100%) !important;
 
     padding-top: 150px;
     padding-bottom: 150px;

@@ -8,6 +8,7 @@ import Shop from './components/Shop';
 import Salles from './components/Salles';
 import { Route, Routes } from 'react-router-dom';
 import Profil from './components/Profil';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/salles" element={<Salles />} />
       </Routes>
+      <Footer />
     
       
     </div>
