@@ -14,14 +14,16 @@ const isAuth = require('../middleware/passport');
 
 //register
 router.post('/register',registerRule(),validation, async (req, res) => {
-    const { fullname, email, password } = req.body;
+    const { fullname, email, password, phone, role } = req.body;
 
     try {
 
         const newUser = new User({
             fullname,
             email,
-            password
+            password,
+            phone,
+            role
         });
         //check if email exist
         const searchedUser = await User.findOne({ email });

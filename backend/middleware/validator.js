@@ -7,7 +7,8 @@ exports.registerRule = () => {
         check('fullname', 'Full name is required').notEmpty(),
         check('email', 'email is required').notEmpty(),
         check('email', 'Please include a valid email').isEmail(),
-        check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6, max: 20 })
+        check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6, max: 20 }),
+        check('role', 'Role must be user, admin or coach').optional().isIn(['user', 'admin', 'coach'])
     ];
 };
 

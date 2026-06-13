@@ -13,6 +13,11 @@ connectDB();
 //routes
 app.use(express.json());
 app.use('/auth', require('./routes/auth'));
+app.use('/salle', require('./routes/salle'));
+app.use('/coach', require('./routes/coach'));
+app.use('/classe', require('./routes/classe'));
+app.use('/reservation', require('./routes/reservation'));
+app.use('/suivi', require('./routes/suivi'));
 
 
 
