@@ -4,6 +4,8 @@ import Navbarr from './components/Navbarr';
 import Home from './components/Home';
 import Register from './components/Register';
 import Login from './components/Login';
+import Shop from './components/Shop';
+import Salles from './components/Salles';
 import { Route, Routes } from 'react-router-dom';
 import Profil from './components/Profil';
 
@@ -16,12 +18,10 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profil" element={<Profil />} />
-
-
-
-
-
+        <Route path="/shop" element={<Shop />} />
+        <Route path="/salles" element={<Salles />} />
       </Routes>
+    
       
     </div>
   );

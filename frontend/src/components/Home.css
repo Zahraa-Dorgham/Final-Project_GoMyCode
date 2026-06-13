@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
+
+.home-container {
+    overflow: hidden;
+    margin-top: 70px;
+}
+
+/* Section Hero */
+.hero-section {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+
+    background-image: url("https://themes.themegoods.com/vive/wp-content/uploads/2021/09/sportive-woman-training-TDRLHDD.jpg");
+    background-size: cover;
+    background-position: right top;
+    background-repeat: no-repeat;
+
+    clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%) !important;
+
+    padding-top: 150px;
+    padding-bottom: 150px;
+
+    display: flex;
+    align-items: center;
+}
+
+/* Wrapper pour le contenu */
+.hero-content-wrapper {
+    height: 100%;
+}
+
+/* Positionnement du texte à gauche */
+.hero-text-col {
+    padding-left: 60px;
+    display: flex;
+    align-items: center;
+    min-height: 100%;
+}
+
+.hero-content {
+    width: 100%;
+}
+
+.hero-typography-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 50px;
+}
+
+/* Lignes de texte */
+.hero-text-line {
+    font-family: "Jost", Sans-serif;
+        font-size: 95px;
+        font-weight: 600;
+    color: #000000;
+    line-height: 95px;
+    font-style: italic;
+    letter-spacing: -1px;
+    margin: 0;
+        position: relative;
+            right: 130px;
+}
+
+/* Texte "Excellence" en italique */
+.text-italic {
+    font-style: italic;
+    font-family: "Jost", Sans-serif;
+}
+
+/* Style du Bouton "Checkout Classes" */
+.hero-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffff00 0%, #ffcc00 100%);
+    color: #000000;
+    text-decoration: none;
+    padding: 18px 45px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(255, 255, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.hero-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(255, 255, 0, 0.5);
+    background: linear-gradient(135deg, #ffff00 0%, #ffdd00 100%);
+    color: #000000;
+    text-decoration: none;
+}
+
+.hero-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Responsive */
+@media (max-width: 991.98px) {
+    .hero-section {
+        clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+        min-height: 80vh;
+        background-position: center;
+    }
+
+    .hero-text-col {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .hero-text-line {
+        font-size: 48px;
+    }
+
+    .animated-headline {
+        font-size: 48px;
+    }
+
+    .words-wrapper {
+        height: 60px;
+        min-width: 220px;
+    }
+
+    .animated-word {
+        font-size: 48px;
+    }
+
+    .hero-btn {
+        padding: 15px 35px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-text-line {
+        font-size: 36px;
+    }
+
+    .animated-headline {
+        font-size: 36px;
+    }
+
+    .words-wrapper {
+        height: 45px;
+        min-width: 180px;
+    }
+
+    .animated-word {
+        font-size: 36px;
+    }
+}
+
+
+
+
+/* --- ANIMATION DES MOTS --- */
+
+.hero-subtitle {
+    font-family: 'Jost';
+    font-weight: 900;
+    font-size: 64px;
+    color: #000000;
+    margin: 0;
+    line-height: 1.1;
+    font-style: italic;
+    letter-spacing: -1px;
+}
+
+.animated-headline {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Jost', Arial, sans-serif;
+    font-size: 95px;
+    font-weight: 600;
+    color: #000000;
+    line-height: 95px;
+    font-style: italic;
+    letter-spacing: -1px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.static-text {
+    display: inline;
+    font-weight: 600;
+    font-style: italic;
+    font-family: 'Jost', Arial, sans-serif;
+}
+
+/* Zone qui contient les mots qui changent */
+.words-wrapper {
+    position: relative;
+    display: inline-block;
+    min-width: 280px;
+    height: 80px;
+    vertical-align: baseline;
+}
+
+/* Style de base pour chaque mot */
+.animated-word {
+    position: absolute;
+
+    left: 10px;
+    top: -3px !important;
+    margin: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    font-weight: 600;
+    font-style: italic;
+    font-size: 95px;
+    line-height: 95px;
+    white-space: nowrap;
+}
+
+/* Quand le mot doit apparaître */
+.animated-word.is-visible {
+    opacity: 1;
+}
+
+/* Quand le mot disparaît */
+.animated-word.is-hidden {
+    opacity: 0;
+}
