@@ -9,17 +9,19 @@ function Profil() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     return (
-        <div>
-            <h1>hello {user?.fullname}</h1>
-
-            <button
-                onClick={() => {
-                    dispatch(logout());
-                    navigate("/login");
-                }}
-            >
-                logout
-            </button>
+        <div className="profile-container">
+            <div className="profile-card">
+                <h1>Hello {user?.fullname}</h1>
+                <p>Welcome to your profile</p>
+                <button
+                    onClick={() => {
+                        dispatch(logout());
+                        navigate("/login");
+                    }}
+                >
+                    Logout
+                </button>
+            </div>
         </div>
     );
 }
