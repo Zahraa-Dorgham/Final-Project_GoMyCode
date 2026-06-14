@@ -6,7 +6,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { FaInstagram, FaFacebookF, FaShoppingBag } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../redux/userSlice/userSlice';
+import { logout } from '../redux/userSlice';
 
 function Navbarr() {
   const { user } = useSelector((state) => state.user);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userRegister } from "../redux/userSlice/userSlice";
+import { userRegister } from "../redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
 function Register() {
   const [register, setregister] = useState({

@@ -13,7 +13,7 @@ import Classes from './components/Classes';
 
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { userCurrent } from './redux/userSlice/userSlice';
+import { userCurrent } from './redux/userSlice';
 
 function App() {
   const dispatch = useDispatch();
