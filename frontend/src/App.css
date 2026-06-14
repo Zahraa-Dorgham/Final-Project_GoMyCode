@@ -17,8 +17,7 @@
 
 /* LOGO Navbarr*/
 .navbar-brand-custom {
-  filter: hue-rotate(250deg);
- 
+filter: hue-rotate(250deg) saturate(250%) contrast(120%);
   }
 .img-logo {
   height: 35px;

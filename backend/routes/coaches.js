@@ -44,13 +44,23 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-// Delete Coach
+
 router.delete('/:id', async (req, res) => {
     try {
         await Coach.findByIdAndDelete(req.params.id);
         res.status(200).send({ msg: 'Coach deleted' });
     } catch (error) {
         res.status(500).send({ msg: 'Error deleting coach', error: error.message });
+    }
+});
+
+// Delete All Coaches
+router.delete('/deleteall/all', async (req, res) => {
+    try {
+        const result = await Coach.deleteMany({});
+        res.status(200).send({ msg: 'All coaches deleted', deletedCount: result.deletedCount });
+    } catch (error) {
+        res.status(500).send({ msg: 'Error deleting all coaches', error: error.message });
     }
 });
 

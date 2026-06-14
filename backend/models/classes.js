@@ -12,7 +12,7 @@ const classeSchema = new schema({
     },
     gender: {
         type: String,
-        enum: ['H', 'F', 'Mixte', 'Child'],
+        enum: ['Men', 'Women', 'Mixte', 'Child'],
         required: true
     },
     prix: {
@@ -20,7 +20,7 @@ const classeSchema = new schema({
         required: true
     },
     date: {
-        type: String, // Or Date
+        type: String, 
         required: true
     },
     time: {

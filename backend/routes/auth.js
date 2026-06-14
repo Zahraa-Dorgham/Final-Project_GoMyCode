@@ -1,178 +1,152 @@
-const express = require('express');
-
+const express = require("express");
 const router = express.Router();
-const bcrypt = require('bcrypt');
-const User = require('../models/user');
-const jwt = require('jsonwebtoken');
-const { registerRule, validation, loginRule } = require('../middleware/validator');
-const isAuth = require('../middleware/passport');
-// router.get('/', (req, res) => {
-//     res.send('hello');
-// });
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
+const User = require("../models/User");
 
+const { registerRule, validation, loginRule } = require("../middleware/validator");
+const isAuth = require("../middleware/passport");
 
-//register
-router.post('/register',registerRule(),validation, async (req, res) => {
-    const { fullname, email, password, phone, role } = req.body;
+//  REGISTER
+router.post("/register", registerRule(), validation, async (req, res) => {
+    const { fullname, email, password, phone } = req.body;
 
     try {
+        // check email exist
+        const searchedUser = await User.findOne({ email });
+        if (searchedUser) {
+            return res.status(400).send({ message: "Email already exists" });
+        }
 
+        // hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        // create user
         const newUser = new User({
             fullname,
             email,
-            password,
+            password: hashedPassword,
             phone,
-            role
+            role: "user"
         });
-        //check if email exist
-        const searchedUser = await User.findOne({ email });
-        if (searchedUser) {
-            return res.status(400).send({ message: 'Email already exists' });
-        }
 
-
-        //hash password
-        const salt =10
-        const gensalt = await bcrypt.genSalt(salt);
-        const hash = await bcrypt.hash(password, gensalt);
-        console.log(hash);
-        newUser.password = hash;
-
-       // ceate token
-       const newUserToken = await newUser.save();
-       const payload = {
-        _id: newUser._id,
-         }
-            const token = jwt.sign(payload, process.env.SecretOrKey, { expiresIn: '1h' });
-       
-        //save user
         await newUser.save();
 
-        res.status(200).json({ newUser, message: 'User created successfully', token: `Bearer ${token}` });
+        // token
+        const payload = {
+            _id: newUser._id,
+            role: newUser.role
+        };
+
+        const token = jwt.sign(payload, process.env.SecretOrKey, {
+            expiresIn: "1h"
+        });
+
+        res.status(200).json({
+            user: newUser,
+            message: "User created successfully",
+            token: `Bearer ${token}`
+        });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: 'Server error' });
+        res.status(500).json({ message: "Server error" });
     }
 });
 
-//login
-router.post('/login', loginRule(), validation, async (req, res) => {
+
+//  LOGIN
+router.post("/login", loginRule(), validation, async (req, res) => {
     const { email, password } = req.body;
+
     try {
-       
-        //check if user exist
-      
-
         const searchedUser = await User.findOne({ email });
-        // if the email is not exist
+
         if (!searchedUser) {
-            return res.status(400).send({ message: 'Invalid credentials' });
-        }
-        //check if the password is correct
-
-        const Match = await bcrypt.compare(password, searchedUser.password);
-        
-        if (!Match) {
-            return res.status(400).send({ message: 'Invalid credentials' });
+            return res.status(400).send({ message: "Invalid credentials" });
         }
 
-        // creeate token
+        const isMatch = await bcrypt.compare(password, searchedUser.password);
+
+        if (!isMatch) {
+            return res.status(400).send({ message: "Invalid credentials" });
+        }
+
         const payload = {
             _id: searchedUser._id,
-        }
-        const token = jwt.sign(payload, process.env.SecretOrKey, { expiresIn: '1h' });
-        console.log(token);
-        
-        //send the user
-        res.status(200).send({ user: searchedUser, message: 'Login successful', token: `Bearer ${token}` });
+            role: searchedUser.role
+        };
 
-        
+        const token = jwt.sign(payload, process.env.SecretOrKey, {
+            expiresIn: "1h"
+        });
 
-       
+        res.status(200).send({
+            user: searchedUser,
+            message: "Login successful",
+            token: `Bearer ${token}`
+        });
     } catch (error) {
-        res.status(500).send({ message: 'can not get the user' });
+        res.status(500).send({ message: "Cannot login user" });
     }
 });
 
 
-router.get('/current', isAuth(), (req, res) => {
+// CURRENT USER
+router.get("/current", isAuth(), (req, res) => {
     try {
         res.status(200).send({ user: req.user });
     } catch (error) {
-        res.status(500).send({ message: 'can not get the user' });
+        res.status(500).send({ message: "Cannot get user" });
     }
 });
 
 
-//get all users
-
+//  GET ALL USERS
 router.get("/", async (req, res) => {
     try {
-
-        let result = await User.find();
-        res.send({ users: result, msg: "all users" })
-
+        const users = await User.find();
+        res.send({ users, msg: "all users" });
     } catch (error) {
-        console.log(error)
+        res.status(500).send(error);
     }
-
-})
-
+});
 
 
-//find user By Id
-
-
+//  GET BY ID
 router.get("/:id", async (req, res) => {
     try {
-
-        let result = await User.findById(req.params.id);
-        res.send({ user: result, msg: "one user" })
-
+        const user = await User.findById(req.params.id);
+        res.send({ user, msg: "one user" });
     } catch (error) {
-        console.log(error)
+        res.status(500).send(error);
     }
-
-})
-
+});
 
 
-
-//delete user
-
+// DELETE USER
 router.delete("/:id", async (req, res) => {
     try {
-
-        let result = await User.findByIdAndDelete(req.params.id);
-        res.send({ msg: "user is deleted" })
-
+        await User.findByIdAndDelete(req.params.id);
+        res.send({ msg: "user deleted" });
     } catch (error) {
-        console.log(error)
+        res.status(500).send(error);
     }
+});
 
-})
 
-
-//edit user
-
+// UPDATE USER
 router.put("/:id", async (req, res) => {
     try {
+        await User.findByIdAndUpdate(req.params.id, {
+            $set: req.body
+        });
 
-        let result = await User.findByIdAndUpdate(
-            { _id: req.params.id }, { $set: { ...req.body } }
-        );
-        res.send({ msg: "user is edited" })
-
-
+        res.send({ msg: "user updated" });
     } catch (error) {
-        console.log(error)
+        res.status(500).send(error);
     }
-
-})
-
-
-
-
+});
 
 module.exports = router;

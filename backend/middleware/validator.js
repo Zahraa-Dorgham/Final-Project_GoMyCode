@@ -1,28 +1,24 @@
+const { check, validationResult } = require("express-validator");
 
-const { check, validationResult } = require('express-validator');
+exports.registerRule = () => [
+    check("fullname", "Full name is required").notEmpty(),
+    check("email", "Email is required").notEmpty(),
+    check("email", "Invalid email").isEmail(),
+    check("password", "Password must be 6-20 chars").isLength({ min: 6, max: 20 })
+];
 
-
-exports.registerRule = () => {
-    return [
-        check('fullname', 'Full name is required').notEmpty(),
-        check('email', 'email is required').notEmpty(),
-        check('email', 'Please include a valid email').isEmail(),
-        check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6, max: 20 }),
-        check('role', 'Role must be user, admin or coach').optional().isIn(['user', 'admin', 'coach'])
-    ];
-};
-
+exports.loginRule = () => [
+    check("email", "Email is required").notEmpty(),
+    check("email", "Invalid email").isEmail(),
+    check("password", "Password must be 6-20 chars").isLength({ min: 6, max: 20 })
+];
 
 exports.validation = (req, res, next) => {
     const errors = validationResult(req);
-    !errors.isEmpty() ? res.status(400).send({ errors: errors.array().map(el => el.msg) }) : next();
-}
-
-
-exports.loginRule = () => {
-    return [
-        check('email', 'email is required').notEmpty(),
-        check('email', 'Please include a valid email').isEmail(),
-        check('password', 'Please enter a password with 6 or more characters').isLength({ min: 6, max: 20 })
-    ];
+    if (!errors.isEmpty()) {
+        return res.status(400).send({
+            errors: errors.array().map((e) => e.msg)
+        });
+    }
+    next();
 };

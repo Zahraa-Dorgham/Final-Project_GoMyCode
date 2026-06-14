@@ -24,20 +24,20 @@ const Footer = () => {
                     <div className="col-md-3">
                         <h4 className="footer-title">ABOUT</h4>
                         <ul className="footer-links">
-                            <li><a href="#">Fit Club in a nutshell</a></li>
-                            <li><a href="#">What we do</a></li>
-                            <li><a href="#">History</a></li>
-                            <li><a href="#">Management Team</a></li>
+                            <li><a href="#">aaaaa</a></li>
+                            <li><a href="#">aaaa</a></li>
+                            <li><a href="#">aaaaaaaaa</a></li>
+                            <li><a href="#">aaaaaa</a></li>
                         </ul>
                     </div>
 
                     <div className="col-md-3">
                         <h4 className="footer-title">CLASSES</h4>
                         <ul className="footer-links">
-                            <li><a href="#">Overview</a></li>
-                            <li><a href="#">Classes alternate view</a></li>
-                            <li><a href="#">Class pricing</a></li>
-                            <li><a href="#">Find out more</a></li>
+                            <li><a href="#">bbbb</a></li>
+                            <li><a href="#">bbbbb</a></li>
+                            <li><a href="#">bbb</a></li>
+                            <li><a href="#">bbb</a></li>
                         </ul>
                     </div>
 

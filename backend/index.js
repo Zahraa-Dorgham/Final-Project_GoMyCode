@@ -18,6 +18,7 @@ app.use('/coach', require('./routes/coaches'));
 app.use('/classe', require('./routes/classes'));
 app.use('/reservation', require('./routes/reservation'));
 app.use('/suivi', require('./routes/SuiviCoach'));
+app.use('/products', require('./routes/product'));
 
 
 
