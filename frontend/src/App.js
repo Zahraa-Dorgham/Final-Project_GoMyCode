@@ -9,8 +9,21 @@ import Salles from './components/Salles';
 import { Route, Routes } from 'react-router-dom';
 import Profil from './components/Profil';
 import Footer from './components/Footer';
+import Classes from './components/Classes';
+
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { userCurrent } from './redux/userSlice/userSlice';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      dispatch(userCurrent());
+    }
+  }, [dispatch]);
+
   return (
     <div className="App">
       <Navbarr />
@@ -21,6 +34,7 @@ function App() {
         <Route path="/profil" element={<Profil />} />
         <Route path="/shop" element={<Shop />} />
         <Route path="/salles" element={<Salles />} />
+        <Route path="/classes" element={<Classes />} />
       </Routes>
       <Footer />
     

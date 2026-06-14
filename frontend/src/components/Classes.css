@@ -1,0 +1,54 @@
+.classes-page {
+    background-color: #fafafa;
+    min-height: 100vh;
+}
+
+.classes-hero {
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1571902943202-507ec2618e8f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    padding: 80px 0;
+    text-align: center;
+}
+
+.classes-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+}
+
+.classe-card {
+    border-radius: 20px;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.classe-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1) !important;
+}
+
+.classe-card img {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    height: 220px;
+    object-fit: cover;
+}
+
+.x-small {
+    font-size: 0.75rem;
+}
+
+.text-success {
+    color: #A3FF00 !important;
+}
+
+.btn-dark {
+    background-color: #000;
+    border: none;
+    transition: background-color 0.2s;
+}
+
+.btn-dark:hover {
+    background-color: #A3FF00;
+    color: black;
+}

@@ -1,0 +1,33 @@
+.profile-page {
+    background-color: #f0f2f5;
+    min-height: 100vh;
+}
+
+.profile-info-card {
+    position: relative;
+    overflow: visible;
+}
+
+.avatar-wrapper img {
+    width: 120px;
+    height: 120px;
+    border: 4px solid white;
+}
+
+.rounded-4 {
+    border-radius: 1.5rem !important;
+}
+
+.bg-primary {
+    background-color: #A3FF00 !important;
+    color: black !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+.badge {
+    font-size: 0.8rem;
+    padding: 0.5em 1em;
+}
