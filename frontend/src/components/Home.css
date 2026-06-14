@@ -229,3 +229,356 @@
 .animated-word.is-hidden {
     opacity: 0;
 }
+
+/* === CLASSES SECTION === */
+.classes-section {
+    padding: 80px 0;
+}
+
+.classes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 0 40px;
+}
+
+.class-card-link {
+    text-decoration: none;
+}
+
+.class-card {
+    position: relative;
+    height: 350px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.class-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+}
+
+.class-card-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.class-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    transition: background 0.3s ease;
+}
+
+.class-card:hover .class-card-overlay {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.class-card-title {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 25px;
+    background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.8));
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 2;
+    transform: translateY(10px);
+    transition: transform 0.3s ease;
+}
+
+.class-card:hover .class-card-title {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .classes-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 25px;
+        padding: 0 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .classes-section {
+        padding: 60px 0;
+    }
+
+    .classes-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        padding: 0 15px;
+    }
+
+    .class-card {
+        height: 280px;
+    }
+
+    .class-card-title {
+        font-size: 18px;
+        padding: 15px;
+    }
+}
+
+/* featured  */
+
+
+.features-info-section {
+    padding: 100px 15px;
+    background-color: #ffffff;
+}
+
+.welcome-tag {
+    color: #ff5e62;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 15px;
+}
+
+.features-text-block h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-size: 3rem;
+    line-height: 1.1;
+    color: #111111;
+    margin-bottom: 50px;
+    font-style: italic;
+}
+
+.features-grid-row {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.feature-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+/* Le rond vert fluo avec le flou (Glow Effect) */
+.feature-icon-wrapper {
+    position: relative;
+    width: 70px;
+    height: 70px;
+    background-color: #a3ff00;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 0 30px rgba(163, 255, 0, 0.6);
+}
+
+.feature-icon-wrapper img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.feature-item-content h3 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+    font-size: 1.6rem;
+    color: #111111;
+    margin-bottom: 10px;
+}
+
+.feature-item-content p {
+    color: #666666;
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 450px;
+    margin-bottom: 12px;
+}
+
+.discover-link {
+    color: #ff5e62;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.95rem;
+    position: relative;
+    display: inline-block;
+}
+
+.discover-link::before {
+    content: "";
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background-color: #ff5e62;
+    transition: width 0.3s ease;
+}
+
+.discover-link:hover::before {
+    width: 100%;
+}
+
+/* image */
+.side-fitness-img {
+    max-width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+
+
+.classes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 100fr);
+    /* 4 colonnes parfaites */
+    gap: 20px;
+    padding: 40px 15px;
+}
+
+@media (max-width: 992px) {
+    .classes-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* 2 sur tablette */
+}
+
+@media (max-width: 576px) {
+    .classes-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 1 sur mobile */
+}
+
+.class-card-link {
+    text-decoration: none;
+}
+
+.class-card {
+    position: relative;
+    height: 450px;
+    border-radius: 20px;
+    overflow: hidden;
+    background-color: #111;
+}
+
+.class-card-image {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+}
+
+.class-card:hover .class-card-image {
+    transform: scale(1.08);
+}
+
+.class-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0) 50%);
+}
+
+/* Changement d'ambiance au survol */
+.class-card:hover .class-card-overlay {
+    background: linear-gradient(to top, rgba(163, 255, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 70%);
+}
+
+.class-card-title {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 900;
+    font-style: italic;
+    font-size: 2rem;
+    z-index: 2;
+    text-transform: capitalize;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* logo section */
+.brands-showcase-section {
+    background-color: #ffffff;
+}
+
+.brands-grid {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.brand-logo-item {
+    flex: 1;
+    min-width: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.brand-logo-item img {
+    max-width: 100%;
+    height: 200px;
+    object-fit: contain;
+    transition: all 0.4s ease-in-out;
+}
+
+.brand-logo-item img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+    cursor: pointer;
+    filter:invert()
+}
+
+@media (max-width: 768px) {
+    .brands-grid {
+        justify-content: center;
+    }
+
+    .brand-logo-item {
+        flex: calc(33.33% - 20px);
+    }
+}
+
+@media (max-width: 480px) {
+    .brand-logo-item {
+        flex: calc(50% - 20px);
+    }
+}

@@ -7,35 +7,54 @@
   pointer-events: none;
 }
 .navbar-custom {
-  background-color: transparent !important;
-  font-family: 'Arial', sans-serif;
-  /* Vous pouvez remplacer par votre police personnalisée */
+ font-family: 'Arial', sans-serif;
   padding-top: 20px;
   padding-bottom: 20px;
   z-index: 1030;
+  transition: all 0.3s ease;
+}
+
+.navbar-custom.navbar-scrolled {
+  background: #ffffff !important;
 }
 
 /* LOGO Navbarr*/
 .navbar-brand-custom {
-filter: hue-rotate(250deg) saturate(250%) contrast(120%);
-  }
+  filter: hue-rotate(250deg) saturate(250%) contrast(120%);
+}
+
 .img-logo {
   height: 35px;
   position: relative;
-left:100px;
+  left: 100px;
+}
+
+.nav-item-custom {
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navbar-scrolled .nav-item-custom {
+  color: #000000 !important;
 }
 
 .nav-item-custom .dropdown-toggle {
-  color: #000000 !important;
   font-weight: 600;
   font-size: 1rem;
   text-decoration: none;
 }
 
+.navbar-scrolled .nav-item-custom .dropdown-toggle {
+  color: #000000 !important;
+}
+
 .nav-item-custom .dropdown-toggle::after {
   vertical-align: middle;
   margin-left: 5px;
-  border-top: 0.3em solid #000000;
+}
+
+.navbar-scrolled .nav-item-custom .dropdown-toggle::after {
+  border-top-color: #000000 !important;
 }
 
 .navbar-icons-right {
@@ -44,14 +63,17 @@ left:100px;
 }
 
 .icon-link {
-  color: #000000;
   font-size: 1.1rem;
-  transition: opacity 0.2s ease;
+  color: #000000;
+  transition: all 0.3s ease;
+}
+
+.navbar-scrolled .icon-link {
+  color: #000000;
 }
 
 .icon-link:hover {
-  opacity: 0.7;
-  color: #000000;
+  opacity: 0.8;
 }
 
 /* Conteneur du Panier avec le badge vert */
@@ -82,9 +104,22 @@ left:100px;
   justify-content: center;
 }
 
-/* Bouton toggle mobile sans bordure */
 .toggle-custom:focus {
   box-shadow: none !important;
+}
+
+
+
+.navbar-scrolled .navbar-toggler {
+  border-color: #000000 !important;
+}
+
+.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23FFFFFF' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.navbar-scrolled .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23000000' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 

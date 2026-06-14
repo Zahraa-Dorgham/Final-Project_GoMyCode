@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -11,9 +11,19 @@ import { logout } from '../redux/userSlice';
 function Navbarr() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <Navbar expand="lg" className="navbar-custom fixed-top">
+    <Navbar expand="lg" className={`navbar-custom fixed-top ${isScrolled ? 'navbar-scrolled' : ''}`}>
       <Container fluid className="px-lg-5">
     
         <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">
