@@ -2,17 +2,19 @@
 
 .home-container {
     overflow: hidden;
-    margin-top: 70px;
 }
 
 /* Section Hero */
 .hero-section {
     position: relative;
-    width: 100%;
+    width: 100vw;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    margin-top: 70px;
     min-height: 100vh;
 
-    
-    /* Image de la femme avec effet vibrant */
     background-image: url("https://themes.themegoods.com/vive/wp-content/uploads/2021/09/sportive-woman-training-TDRLHDD.jpg");
     background-size: cover;
     background-position: right center;
@@ -160,7 +162,7 @@
 
 
 
-/* --- ANIMATION DES MOTS --- */
+/* mots animés*/
 
 .hero-subtitle {
     font-family: 'Jost';
@@ -232,7 +234,7 @@
 
 /* === CLASSES SECTION === */
 .classes-section {
-    padding: 80px 0;
+    padding: 15px 0;
 }
 
 .classes-grid {
@@ -340,7 +342,7 @@
 
 
 .features-info-section {
-    padding: 100px 15px;
+    
     background-color: #ffffff;
 }
 
@@ -348,26 +350,32 @@
     color: #ff5e62;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 1.1rem;
+    font-size: 20px;
     text-transform: uppercase;
     display: block;
     margin-bottom: 15px;
+    position: relative;
+    right: 147px;
+    bottom: 100px;
 }
 
 .features-text-block h2 {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 900;
-    font-size: 3rem;
+    font-weight: 700;
+    font-size: 61px;
     line-height: 1.1;
     color: #111111;
     margin-bottom: 50px;
     font-style: italic;
+    position: relative;
+    bottom: 49px;
 }
 
 .features-grid-row {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 30px;
 }
 
 .feature-item {
@@ -376,7 +384,6 @@
     gap: 25px;
 }
 
-/* Le rond vert fluo avec le flou (Glow Effect) */
 .feature-icon-wrapper {
     position: relative;
     width: 70px;
@@ -409,8 +416,10 @@
     color: #666666;
     font-size: 1rem;
     line-height: 1.6;
-    max-width: 450px;
+    max-width: 750px;
     margin-bottom: 12px;
+    text-align: justify;
+
 }
 
 .discover-link {
@@ -443,6 +452,49 @@
     max-width: 100%;
     height: auto;
     object-fit: cover;
+    position: relative;
+    left: 292px;
+}
+
+.features-image-block {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .features-grid-row {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .features-text-block h2 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .features-info-section {
+        padding: 60px 15px;
+    }
+
+    .features-text-block h2 {
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+    }
+
+    .feature-item {
+        gap: 15px;
+    }
+
+    .feature-item-content h3 {
+        font-size: 1.3rem;
+    }
+
+    .features-image-block {
+        margin-top: 40px;
+    }
 }
 
 

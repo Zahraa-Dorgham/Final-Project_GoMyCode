@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getClasses } from '../redux/classeSlice';
+import fitnessImage from '../assets/fitness-homepage.png';
 import './Home.css';
 
 function Home() {
@@ -84,7 +85,7 @@ function Home() {
       <section className="features-info-section container">
         <div className="row align-items-center">
           <div className="col-lg-6 features-text-block">
-            <span className="welcome-tag">Welcome To FIT Club </span>
+            <span className="welcome-tag">Welcome To FIT CLUB</span>
             <h2>Powered by fitness & inspired by helping others</h2>
 
             <div className="features-grid-row">
@@ -95,7 +96,7 @@ function Home() {
                 </div>
                 <div className="feature-item-content">
                   <h3>Personal Training</h3>
-                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots.</p>
+                  <p>Work one-on-one with certified trainers to build strength, improve performance, and maintain a healthy lifestyle.</p>
                   <Link to="/classes" className="discover-link">Discover More</Link>
                 </div>
               </div>
@@ -107,7 +108,7 @@ function Home() {
                 </div>
                 <div className="feature-item-content">
                   <h3>Physical Therapy</h3>
-                  <p>A small river named Duden flows by their place and supplies it with the necessary regalia.</p>
+                  <p>Recover stronger and train smarter with professional therapy services that help improve mobility and flexibility.</p>
                   <Link to="/classes" className="discover-link">Discover More</Link>
                 </div>
               </div>
@@ -116,7 +117,7 @@ function Home() {
 
           <div className="col-lg-6 text-center features-image-block">
             <img
-              src=""
+              src={fitnessImage}
               alt="Fitness training"
               className="side-fitness-img"
             />

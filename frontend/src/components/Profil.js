@@ -50,7 +50,6 @@ const Profil = () => {
                     <h4 className="mb-0 fw-bold">Gestion des Réservations (Vue {user.role})</h4>
                   </Card.Header>
                   <ListGroup variant="flush">
-                    {/* Logique pour voir TOUTES les réservations ici */}
                     <ListGroup.Item className="py-3 text-center text-muted">
                       Accès aux données globales activé.
                     </ListGroup.Item>

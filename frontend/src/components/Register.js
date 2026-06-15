@@ -8,7 +8,9 @@ function Register() {
     email: "",
     password: "",
     phone: "",
-    role: "user"
+    age: "",
+    weight: "",
+    gender: ""
   });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
@@ -24,79 +26,135 @@ function Register() {
   const handleRegister = async (e) => {
     e.preventDefault();
     if (!register.fullname || !register.email || !register.password || !register.phone) {
-      alert("Veuillez remplir tous les champs");
+      alert("Veuillez remplir tous les champs obligatoires");
       return;
     }
     await dispatch(userRegister(register));
   };
 
   return (
-    <div className="register-page">
-      <div className="wrapper">
-        <form onSubmit={handleRegister} className="form-signin">
-          <h2 className="form-signin-heading">Créer un compte</h2>
-          
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Nom complet"
-            required
-            onChange={(e) => setregister({ ...register, fullname: e.target.value })}
-          />
-          
-          <input
-            type="email"
-            className="form-control"
-            placeholder="Adresse Email"
-            required
-            onChange={(e) => setregister({ ...register, email: e.target.value })}
-          />
-
-          <input
-            type="text"
-            className="form-control"
-            placeholder="Numéro de téléphone"
-            required
-            onChange={(e) => setregister({ ...register, phone: e.target.value })}
-          />
-
-          <select 
-            className="form-control"
-            onChange={(e) => setregister({ ...register, role: e.target.value })}
-            value={register.role}
-          >
-            <option value="user">Utilisateur (Client)</option>
-            <option value="coach">Coach</option>
-            <option value="admin">Administrateur</option>
-          </select>
-          
-          <div className="password-field">
-            <input
-              type={showPassword ? "text" : "password"}
-              className="form-control"
-              placeholder="Mot de passe"
-              required
-              onChange={(e) => setregister({ ...register, password: e.target.value })}
-            />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? "👁️" : "🙈"}
-            </button>
+    <div className="login-page-container">
+      <div className="login-card-wrapper">
+        <div className="login-post-header">
+          <div className="post-header-content">
+            <h2 className="header-main-title">START YOUR <br /> FITNESS JOURNEY</h2>
+            <p className="header-sub-text">Join our community of fitness enthusiasts and begin your transformation today. Get access to expert guidance, personalized training plans, and achieve your fitness goals.</p>
           </div>
-         
-          <button
-            type="submit"
-            className="btn btn-lg btn-primary btn-block"
-          >
+        </div>
+        <h1 className="login-main-title">Register</h1>
+
+        <form onSubmit={handleRegister} className="login-form-box">
+        
+          <div className="form-group-custom">
+            <label htmlFor="fullname">
+              Nom complet <span className="required-star">*</span>
+            </label>
+            <input
+              id="fullname"
+              type="text"
+              className="input-field-custom"
+              required
+              onChange={(e) => setregister({ ...register, fullname: e.target.value })}
+            />
+          </div>
+
+          <div className="form-group-custom">
+            <label htmlFor="email">
+              Adresse Email <span className="required-star">*</span>
+            </label>
+            <input
+              id="email"
+              type="email"
+              className="input-field-custom"
+              required
+              onChange={(e) => setregister({ ...register, email: e.target.value })}
+            />
+          </div>
+
+          <div className="form-group-custom">
+            <label htmlFor="phone">
+              Numéro de téléphone <span className="required-star">*</span>
+            </label>
+            <input
+              id="phone"
+              type="text"
+              className="input-field-custom"
+              required
+              onChange={(e) => setregister({ ...register, phone: e.target.value })}
+            />
+          </div>
+
+          <div className="form-group-custom">
+            <label htmlFor="age">
+              Âge
+            </label>
+            <input
+              id="age"
+              type="number"
+              className="input-field-custom"
+              onChange={(e) => setregister({ ...register, age: e.target.value })}
+            />
+          </div>
+
+          <div className="form-group-custom">
+            <label htmlFor="weight">
+              Poids (kg)
+            </label>
+            <input
+              id="weight"
+              type="number"
+              className="input-field-custom"
+              onChange={(e) => setregister({ ...register, weight: e.target.value })}
+            />
+          </div>
+
+          <div className="form-group-custom">
+            <label htmlFor="gender">
+              Genre
+            </label>
+            <select 
+              id="gender"
+              className="input-field-custom"
+              onChange={(e) => setregister({ ...register, gender: e.target.value })}
+              value={register.gender}
+            >
+              <option value="">Sélectionner le genre</option>
+              <option value="male">Homme</option>
+              <option value="female">Femme</option>
+            </select>
+          </div>
+
+          <div className="form-group-custom">
+            <label htmlFor="password" className="password-label">
+              Mot de passe <span className="required-star">*</span>
+            </label>
+            <div className="password-input-wrapper">
+              <input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                className="input-field-custom"
+                required
+                onChange={(e) => setregister({ ...register, password: e.target.value })}
+              />
+              <button
+                type="button"
+                className="toggle-password-btn"
+                onClick={() => setShowPassword(!showPassword)}
+             
+              >
+              </button>
+            </div>
+          </div>
+
+          <button type="submit" className="submit-login-btn">
             S'inscrire
           </button>
 
-          <h5>
-            Déjà inscrit ? <Link to="/login">Se connecter</Link>
-          </h5>
+          <div className="login-footer-links">
+            <p className="register-redirect">
+              Aleardy have an account ? <Link to="/login">Login </Link>
+            </p>
+          </div>
         </form>
       </div>
     </div>
