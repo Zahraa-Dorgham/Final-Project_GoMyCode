@@ -23,13 +23,13 @@ function Register() {
     }
   }, [status, user, navigate]);
 
-  const handleRegister = async (e) => {
+  const handleRegister = (e) => {
     e.preventDefault();
     if (!register.fullname || !register.email || !register.password || !register.phone) {
       alert("Veuillez remplir tous les champs obligatoires");
       return;
     }
-    await dispatch(userRegister(register));
+    dispatch(userRegister(register));
   };
 
   return (
@@ -46,87 +46,86 @@ function Register() {
         <form onSubmit={handleRegister} className="login-form-box">
         
           <div className="form-group-custom">
-            <label htmlFor="fullname">
-              Nom complet <span className="required-star">*</span>
+            <label htmlFor="fullname" className="name">
+              Full Name <span className="required-star">*</span>
             </label>
             <input
               id="fullname"
               type="text"
               className="input-field-custom"
               required
+              value={register.fullname}
               onChange={(e) => setregister({ ...register, fullname: e.target.value })}
             />
           </div>
 
           <div className="form-group-custom">
-            <label htmlFor="email">
-              Adresse Email <span className="required-star">*</span>
+            <label htmlFor="email" className="email">
+              Email Adress <span className="required-star">*</span>
             </label>
             <input
               id="email"
               type="email"
               className="input-field-custom"
               required
+              value={register.email}
               onChange={(e) => setregister({ ...register, email: e.target.value })}
             />
           </div>
 
           <div className="form-group-custom">
-            <label htmlFor="phone">
-              Numéro de téléphone <span className="required-star">*</span>
+            <label htmlFor="phone" className="phone">
+              Phone Number <span className="required-star">*</span>
             </label>
             <input
               id="phone"
               type="text"
               className="input-field-custom"
               required
+              value={register.phone}
               onChange={(e) => setregister({ ...register, phone: e.target.value })}
             />
           </div>
 
           <div className="form-group-custom">
-            <label htmlFor="age">
-              Âge
-            </label>
+            <label htmlFor="age" className="age">Age</label>
             <input
               id="age"
               type="number"
               className="input-field-custom"
+              value={register.age}
               onChange={(e) => setregister({ ...register, age: e.target.value })}
             />
           </div>
 
           <div className="form-group-custom">
-            <label htmlFor="weight">
-              Poids (kg)
-            </label>
+            <label htmlFor="weight" className="weight">Weight (kg)</label>
             <input
               id="weight"
               type="number"
               className="input-field-custom"
+              value={register.weight}
               onChange={(e) => setregister({ ...register, weight: e.target.value })}
             />
           </div>
 
           <div className="form-group-custom">
-            <label htmlFor="gender">
-              Genre
-            </label>
+            <label htmlFor="gender" className="gender"s>Gender</label>
             <select 
               id="gender"
               className="input-field-custom"
               onChange={(e) => setregister({ ...register, gender: e.target.value })}
               value={register.gender}
             >
-              <option value="">Sélectionner le genre</option>
-              <option value="male">Homme</option>
-              <option value="female">Femme</option>
+              <option value="">Choose gender</option>
+              <option value="male">Men</option>
+              <option value="female">Women</option>
             </select>
           </div>
 
           <div className="form-group-custom">
             <label htmlFor="password" className="password-label">
-              Mot de passe <span className="required-star">*</span>
+              Password <span className="required-star">*</span>
             </label>
             <div className="password-input-wrapper">
               <input
@@ -134,20 +133,21 @@ function Register() {
                 type={showPassword ? "text" : "password"}
                 className="input-field-custom"
                 required
+                value={register.password}
                 onChange={(e) => setregister({ ...register, password: e.target.value })}
               />
               <button
                 type="button"
                 className="toggle-password-btn"
                 onClick={() => setShowPassword(!showPassword)}
-             
               >
+               
               </button>
             </div>
           </div>
 
           <button type="submit" className="submit-login-btn">
-            S'inscrire
+            Register
           </button>
 
           <div className="login-footer-links">

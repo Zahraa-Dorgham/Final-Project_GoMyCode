@@ -355,7 +355,34 @@
 .register-redirect a:hover {
   color: #ff003c;
 }
-
+.name{
+  position: relative !important;
+  right: 374px !important;
+}
+.email {
+  position: relative !important;
+  right: 363px !important;
+}
+.phone {
+  position: relative !important;
+  right: 353px !important;
+}
+.age {
+  position: relative !important;
+  right: 400px !important;
+}
+.password-label {
+  position: relative !important;
+  right: 374px !important;
+}
+.weight {
+  position: relative !important;
+  right: 374px !important;
+}
+.gender {
+  position: relative !important;
+  right: 390px !important;
+}
 /* Responsive */
 @media (max-width: 768px) {
   .login-form-box {

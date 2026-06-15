@@ -59,9 +59,9 @@ export const userSlice = createSlice({
             })
             .addCase(userRegister.fulfilled, (state, action) => {
                 state.status = "successsss";
-                state.user = action.payload.newUser;
+                state.user = action.payload.user;
                 localStorage.setItem("token", action.payload.token);
-                console.log("Register successful, user:", action.payload.newUser);
+                console.log("Register successful, user:", action.payload.user);
             })
             .addCase(userRegister.rejected, (state, action) => {
                 state.status = "fail";

@@ -10,7 +10,7 @@ const isAuth = require("../middleware/passport");
 
 //  REGISTER
 router.post("/register", registerRule(), validation, async (req, res) => {
-    const { fullname, email, password, phone } = req.body;
+    const { fullname, email, password, phone, age, weight, gender } = req.body;
 
     try {
         // check email exist
@@ -29,6 +29,9 @@ router.post("/register", registerRule(), validation, async (req, res) => {
             email,
             password: hashedPassword,
             phone,
+            age,
+            weight,
+            gender,
             role: "user"
         });
 
