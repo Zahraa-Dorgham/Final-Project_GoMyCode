@@ -12,6 +12,15 @@ router.post('/add', async (req, res) => {
         res.status(500).send({ msg: 'Error adding product', error: error.message });
     }
 });
+// Add Many products once 
+router.post('/addMany', async (req, res) => {
+    try {
+        const products = await Product.insertMany(req.body);
+        res.status(201).json(products);
+    } catch (error) {
+        res.status(500).json({ msg: error.message });
+    }
+});
 
 // Get All Products
 router.get('/all', async (req, res) => {

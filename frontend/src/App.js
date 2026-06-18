@@ -10,6 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 import Profil from './components/Profil';
 import Footer from './components/Footer';
 import Classes from './components/Classes';
+import Coach from './components/Coach';
 
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -22,7 +23,7 @@ function App() {
     if (localStorage.getItem("token")) {
       dispatch(userCurrent());
     }
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="App">
@@ -35,6 +36,7 @@ function App() {
         <Route path="/shop" element={<Shop />} />
         <Route path="/salles" element={<Salles />} />
         <Route path="/classes" element={<Classes />} />
+        <Route path="/coaches" element={<Coach />} />
       </Routes>
       <Footer />
     

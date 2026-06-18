@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
-import { FaInstagram, FaFacebookF, FaShoppingBag } from 'react-icons/fa';
+import { FaFacebookF, FaInstagram, FaSearch, FaShoppingBag, FaUserCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/userSlice';
 
 function Navbarr() {
   const { user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
+  const isHomePage = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,9 +26,17 @@ function Navbarr() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleSearch = (event) => {
+    event.preventDefault();
+    const cleanSearch = searchTerm.trim();
+
+    navigate(cleanSearch ? `/classes?search=${encodeURIComponent(cleanSearch)}` : '/classes');
+    setSearchTerm('');
+  };
+
   return (
-    <Navbar expand="lg" className={`navbar-custom fixed-top ${isScrolled ? 'navbar-scrolled' : ''}`}>
-      <Container fluid className="px-lg-5">
+    <Navbar expand="lg" className={`navbar-custom fixed-top ${isHomePage ? 'navbar-home' : ''} ${isScrolled ? 'navbar-scrolled' : ''}`}>
+      <Container fluid className="navbar-inner px-lg-5">
     
         <Navbar.Brand as={Link} to="/" className="navbar-brand-custom">
           <img className="img-logo" src="https://fitness-club.bold-themes.com/main-demo/wp-content/uploads/sites/3/2016/08/logo.png" alt="FitConnect Logo" />
@@ -38,28 +50,45 @@ function Navbarr() {
             <Nav.Link as={Link} to="/salles" className="nav-item-custom">Salles</Nav.Link>
             <Nav.Link as={Link} to="/classes" className="nav-item-custom">Classes</Nav.Link>
             <Nav.Link as={Link} to="/shop" className="nav-item-custom">Shop</Nav.Link>
+            <Nav.Link as={Link} to="/coaches" className="nav-item-custom">Coaches</Nav.Link>
+
 
             {user ? (
-               <NavDropdown title={user.fullname} id="user-dropdown" className="nav-item-custom">
-               <NavDropdown.Item as={Link} to="/profil">Profil</NavDropdown.Item>
-               <NavDropdown.Divider />
-               <NavDropdown.Item onClick={() => dispatch(logout())}>Déconnexion</NavDropdown.Item>
-             </NavDropdown>
+              <NavDropdown
+                title={<span className="nav-user-title"><FaUserCircle /> {user.fullname}</span>}
+                id="user-dropdown"
+                className="nav-item-custom"
+              >
+                <NavDropdown.Item as={Link} to="/profil">Profile</NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item onClick={() => dispatch(logout())}>Logout</NavDropdown.Item>
+              </NavDropdown>
             ) : (
               <NavDropdown title="Compte" id="login-dropdown" className="nav-item-custom">
-                <NavDropdown.Item as={Link} to="/login">Connexion</NavDropdown.Item>
-                <NavDropdown.Item as={Link} to="/register">Inscription</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/login">Login</NavDropdown.Item>
+                <NavDropdown.Item as={Link} to="/register">Register</NavDropdown.Item>
               </NavDropdown>
             )}
           </Nav>
 
-          <div className="navbar-icons-right d-flex align-items-center gap-3">
-            <a href="https://instagram.com" target="_blank" rel="noreferrer" className="icon-link"><FaInstagram /></a>
-            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="icon-link"><FaFacebookF /></a>
-            <div className="cart-icon-container">
-              <FaShoppingBag className="icon-link cart-icon" />
+          <form className="navbar-search" onSubmit={handleSearch}>
+            <FaSearch className="navbar-search-icon" />
+            <input
+              type="search"
+              placeholder="Search classes..."
+              aria-label="Search classes"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+            />
+          </form>
+
+          <div className="navbar-icons-right">
+            {/* <a href="https://instagram.com" target="_blank" rel="noreferrer" className="icon-link"><FaInstagram /></a>
+            <a href="https://facebook.com" target="_blank" rel="noreferrer" className="icon-link"><FaFacebookF /></a> */}
+            <Link to="/panier" className="cart-icon-container" aria-label="Shopping cart">
+              <FaShoppingBag className="cart-icon" />
               <span className="cart-badge">0</span>
-            </div>
+            </Link>
           </div>
         </Navbar.Collapse>
       </Container>

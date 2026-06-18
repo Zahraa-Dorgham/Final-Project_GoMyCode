@@ -16,12 +16,17 @@ const productSchema = new schema({
     },
     category: {
         type: String,
-        enum: ['Equipment', 'Nutrition', 'Accessories'],
+        enum: ['Equipment', 'Nutrition', 'Accessories','clothes','shoes'],
         required: true
     },
     image: {
         type: String,
         required: false
+    },
+    images: {
+        type: [String],
+        required: false,
+        default: []
     },
     stock: {
         type: Number,

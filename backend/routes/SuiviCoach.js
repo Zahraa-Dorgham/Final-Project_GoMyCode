@@ -23,6 +23,16 @@ router.get('/all', async (req, res) => {
     }
 });
 
+// Get user suivis
+router.get('/user/:userId', async (req, res) => {
+    try {
+        const suivis = await SuiviCoach.find({ user: req.params.userId }).populate('user').populate('coach').sort({ createdAt: -1 });
+        res.status(200).send({ msg: 'User tracking suivis', suivis });
+    } catch (error) {
+        res.status(500).send({ msg: 'Error fetching user suivis', error: error.message });
+    }
+});
+
 // Accept suivi
 router.put('/accept/:id', async (req, res) => {
     try {

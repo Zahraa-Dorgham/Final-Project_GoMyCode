@@ -10,21 +10,21 @@ const Salles = () => {
 
   useEffect(() => {
     dispatch(getSalles());
-  }, [dispatch]);
+  }, []);
 
   return (
     <div className="salles-page">
       <div className="salles-hero">
         <Container>
-          <h1>Nos Salles de Sport</h1>
-          <p>Découvrez nos installations modernes et connectées pour vos entraînements.</p>
+          <h1>Our Facilities</h1>
+          <p>Discover our modern and connected facilities for your workouts.</p>
         </Container>
       </div>
 
       <Container className="my-5">
         <Row>
           {status === 'pending' ? (
-            <h3>Chargement...</h3>
+            <h3>Loading...</h3>
           ) : salles && salles.length > 0 ? (
             salles.map((salle) => (
               <Col key={salle._id} md={4} className="mb-4">
@@ -40,14 +40,14 @@ const Salles = () => {
                     <Card.Text>{salle.description}</Card.Text>
                     <div className="d-flex justify-content-between align-items-center mt-auto">
                       <span className="text-primary fw-bold">{salle.phone}</span>
-                      <Button variant="outline-dark" className="rounded-pill px-4">Voir Détails</Button>
+                      <Button variant="outline-dark" className="rounded-pill px-4">View Details</Button>
                     </div>
                   </Card.Body>
                 </Card>
               </Col>
             ))
           ) : (
-            <h3>Aucune salle disponible</h3>
+            <h3>No facilities available</h3>
           )}
         </Row>
       </Container>

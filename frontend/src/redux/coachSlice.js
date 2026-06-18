@@ -32,9 +32,15 @@ export const coachSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
+            .addCase(getCoaches.pending, (state) => {
+                state.status = "pending";
+            })
             .addCase(getCoaches.fulfilled, (state, action) => {
                 state.status = "success";
                 state.coaches = action.payload.coaches;
+            })
+            .addCase(getCoaches.rejected, (state) => {
+                state.status = "fail";
             })
             .addCase(addCoach.fulfilled, (state, action) => {
                 state.coaches.push(action.payload.newCoach);

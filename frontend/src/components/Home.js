@@ -14,7 +14,7 @@ function Home() {
 
   useEffect(() => {
     dispatch(getClasses());
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -23,6 +23,33 @@ function Home() {
 
     return () => clearInterval(interval);
   }, [words.length]);
+  // gestion avis  ---
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+
+  const testimonials = [
+    {
+      id: 1,
+      name: "Nour Hamdi",
+      role: "TRAINER",
+      quote: "A good coach makes sure that they have the right incentive before taking on a client. Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words.",
+      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop"
+    },
+    {
+      id: 2,
+      name: "Oussema jlassi",
+      role: "COACH",
+      quote: "Form follows function, but in fitness, consistency beats everything. The platform provides all the necessary tools to track development and maintain top performance.",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop"
+    }
+  ];
+
+  const handleNextReview = () => {
+    setCurrentReviewIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
+  };
+
+  const handlePrevReview = () => {
+    setCurrentReviewIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
+  };
 
   return (
     <div className="home-container">
@@ -53,35 +80,32 @@ function Home() {
                   </div>
                 </div>
 
-                <Link to="/shop" className="hero-btn">Checkout Classes</Link>
+                <Link to="/classes" className="hero-btn">Checkout Classes</Link>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-    
-
       <section className="classes-section">
         <div className="container-fluid">
           <div className="classes-grid">
-            {classes && classes.length > 0 ? (
+            {classes && classes.length > 0  &&
               classes.slice(0, 4).map((classe) => (
                 <Link to="/classes" key={classe._id} className="class-card-link">
                   <div className="class-card">
-                    <div className="class-card-image" style={{ backgroundImage: `url(${classe.img || 'https://via.placeholder.com/500'})` }}>
+                    <div className="class-card-image" style={{ backgroundImage: `url(${classe.img })` }}>
                       <div className="class-card-overlay"></div>
                     </div>
                     <div className="class-card-title">{classe.name}</div>
                   </div>
                 </Link>
               ))
-            ) : (
-              <p className="text-center py-5">Chargement des classes...</p>
-            )}
+          }
           </div>
         </div>
       </section>
+
       <section className="features-info-section container">
         <div className="row align-items-center">
           <div className="col-lg-6 features-text-block">
@@ -125,6 +149,45 @@ function Home() {
         </div>
       </section>
 
+      <section className="testimonial-section">
+        <div className="testimonial-card">
+          <h2 className="testimonial-title">Our Customers</h2>
+
+          <p className="testimonial-text">
+            {testimonials[currentReviewIndex].quote}
+          </p>
+
+          <div className="testimonial-footer">
+            <div className="client-profile">
+              <img
+                src={testimonials[currentReviewIndex].avatar}
+                alt={testimonials[currentReviewIndex].name}
+                className="client-avatar"
+              />
+              <div className="client-info">
+                <h4>{testimonials[currentReviewIndex].name}</h4>
+                <span>{testimonials[currentReviewIndex].role}</span>
+              </div>
+            </div>
+
+            <div className="navigation-arrows">
+              <button className="arrow-btn" onClick={handlePrevReview} aria-label="Previous">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="19" y1="12" x2="5" y2="12"></line>
+                  <polyline points="12 19 5 12 12 5"></polyline>
+                </svg>
+              </button>
+              <button className="arrow-btn" onClick={handleNextReview} aria-label="Next">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Logo */}
       <section className="brands-showcase-section">
         <div className="container">
@@ -147,6 +210,7 @@ function Home() {
           </div>
         </div>
       </section>
+     
     </div>
   );
 }

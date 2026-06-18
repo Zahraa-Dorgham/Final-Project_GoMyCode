@@ -1,32 +1,50 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams } from 'react-router-dom';
 import { getClasses } from '../redux/classeSlice';
 import { addReservation } from '../redux/reservationSlice';
-import { Card, Button, Container, Row, Col, Badge } from 'react-bootstrap';
+import { Badge, Button, Card, Col, Container, Row } from 'react-bootstrap';
 import './Classes.css';
 
 const Classes = () => {
   const dispatch = useDispatch();
   const { classes, status } = useSelector((state) => state.classe);
   const { user } = useSelector((state) => state.user);
+  const [searchParams] = useSearchParams();
+  const searchTerm = searchParams.get('search')?.trim().toLowerCase() || '';
 
   useEffect(() => {
     dispatch(getClasses());
-  }, [dispatch]);
+  }, []);
+
+  const filteredClasses = (classes || []).filter((classe) => {
+    if (!searchTerm) return true;
+
+    return [
+      classe.name,
+      classe.gender,
+      classe.coach?.nameCoach,
+      classe.salleDeSport?.name,
+    ]
+      .filter(Boolean)
+      .some((value) => value.toLowerCase().includes(searchTerm));
+  });
 
   const handleReserve = (classe) => {
     if (!user) {
-      alert("Veuillez vous connecter pour réserver.");
+      alert('Veuillez vous connecter pour réserver.');
       return;
     }
+
     const newRes = {
       user: user._id,
       classe: classe._id,
-      phoneUser: user.phone || "Non renseigné",
-      prix: classe.prix
+      phoneUser: user.phone || 'Non renseigné',
+      prix: classe.prix,
     };
+
     dispatch(addReservation(newRes));
-    alert("Demande de réservation envoyée !");
+    alert('Demande de réservation envoyée !');
   };
 
   return (
@@ -42,14 +60,14 @@ const Classes = () => {
         <Row>
           {status === 'pending' ? (
             <h3>Chargement...</h3>
-          ) : classes && classes.length > 0 ? (
-            classes.map((classe) => (
+          ) : filteredClasses.length > 0 ? (
+            filteredClasses.map((classe) => (
               <Col key={classe._id} lg={4} md={6} className="mb-4">
                 <Card className="classe-card border-0 shadow-sm h-100">
                   <div className="position-relative">
                     <Card.Img variant="top" src={classe.img || 'https://images.unsplash.com/photo-1518611012118-296072bb5602'} />
                     <Badge bg="dark" className="position-absolute top-0 start-0 m-3 rounded-pill px-3 py-2">
-                       {classe.gender}
+                      {classe.gender}
                     </Badge>
                   </div>
                   <Card.Body className="d-flex flex-column">
@@ -68,9 +86,9 @@ const Classes = () => {
                         <p className="mb-0 x-small text-muted">{classe.salleDeSport?.name}</p>
                       </div>
                     </div>
-                    <Button 
-                      variant="dark" 
-                      className="mt-auto rounded-pill py-2 fw-bold" 
+                    <Button
+                      variant="dark"
+                      className="mt-auto rounded-pill py-2 fw-bold"
                       onClick={() => handleReserve(classe)}
                     >
                       Réserver Maintenant
@@ -80,7 +98,7 @@ const Classes = () => {
               </Col>
             ))
           ) : (
-            <h3>Aucune classe disponible</h3>
+            <h3>{searchTerm ? 'Aucune classe trouvée' : 'Aucune classe disponible'}</h3>
           )}
         </Row>
       </Container>

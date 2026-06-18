@@ -16,6 +16,18 @@ const suiviCoachSchema = new schema({
         type: String,
         required: true
     },
+    objectif: {
+        type: String,
+        required: false
+    },
+    preferenceHoraire: {
+        type: String,
+        required: false
+    },
+    message: {
+        type: String,
+        required: false
+    },
     status: {
         type: String,
         enum: ['pending', 'accepted', 'rejected'],

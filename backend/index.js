@@ -9,6 +9,10 @@ require('dotenv').config();
 const connectDB = require('./config/dbconnect');
 connectDB();
 
+// Initialize Passport
+const passport = require('passport');
+require('./middleware/passport');
+app.use(passport.initialize());
 
 //routes
 app.use(express.json());
@@ -18,7 +22,7 @@ app.use('/coach', require('./routes/coaches'));
 app.use('/classe', require('./routes/classes'));
 app.use('/reservation', require('./routes/reservation'));
 app.use('/suivi', require('./routes/SuiviCoach'));
-app.use('/products', require('./routes/product'));
+app.use('/shop', require('./routes/product'));
 
 
 

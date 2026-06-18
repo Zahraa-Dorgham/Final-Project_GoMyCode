@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { FaEnvelope, FaEye, FaEyeSlash, FaLock, FaPhoneAlt, FaRulerVertical, FaUser, FaVenusMars, FaWeight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
-import { userRegister } from "../redux/userSlice";
 import { Link, useNavigate } from "react-router-dom";
+import { userRegister } from "../redux/userSlice";
+
 function Register() {
   const [register, setregister] = useState({
     fullname: "",
@@ -10,12 +12,12 @@ function Register() {
     phone: "",
     age: "",
     weight: "",
-    gender: ""
+    gender: "",
   });
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { status, user } = useSelector(state => state.user);
+  const { status, user } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (status === "successsss" && user) {
@@ -25,139 +27,172 @@ function Register() {
 
   const handleRegister = (e) => {
     e.preventDefault();
+
     if (!register.fullname || !register.email || !register.password || !register.phone) {
       alert("Veuillez remplir tous les champs obligatoires");
       return;
     }
+
     dispatch(userRegister(register));
   };
 
   return (
-    <div className="login-page-container">
-      <div className="login-card-wrapper">
-        <div className="login-post-header">
-          <div className="post-header-content">
-            <h2 className="header-main-title">START YOUR <br /> FITNESS JOURNEY</h2>
-            <p className="header-sub-text">Join our community of fitness enthusiasts and begin your transformation today. Get access to expert guidance, personalized training plans, and achieve your fitness goals.</p>
-          </div>
+    <main className="auth-page-container">
+      <section className="auth-shell auth-shell-register">
+        <div className="auth-visual-panel">
+          <span className="auth-kicker">Join Fit Club</span>
+          <h1>Start strong</h1>
+          <p>Create your account to book classes, track your goals, and build a healthier lifestyle.</p>
         </div>
-        <h1 className="login-main-title">Register</h1>
 
-        <form onSubmit={handleRegister} className="login-form-box">
-        
-          <div className="form-group-custom">
-            <label htmlFor="fullname" className="name">
-              Full Name <span className="required-star">*</span>
-            </label>
-            <input
-              id="fullname"
-              type="text"
-              className="input-field-custom"
-              required
-              value={register.fullname}
-              onChange={(e) => setregister({ ...register, fullname: e.target.value })}
-            />
+        <div className="auth-form-panel">
+          <div className="auth-form-header">
+            <span>New Member</span>
+            <h2>Register</h2>
+            <p>Complete your profile to join the community.</p>
           </div>
 
-          <div className="form-group-custom">
-            <label htmlFor="email" className="email">
-              Email Adress <span className="required-star">*</span>
-            </label>
-            <input
-              id="email"
-              type="email"
-              className="input-field-custom"
-              required
-              value={register.email}
-              onChange={(e) => setregister({ ...register, email: e.target.value })}
-            />
-          </div>
+          <form onSubmit={handleRegister} className="auth-form-box">
+            <div className="auth-form-grid">
+              <div className="form-group-custom">
+                <label htmlFor="fullname">
+                  Full Name <span className="required-star">*</span>
+                </label>
+                <div className="auth-input-wrapper">
+                  <FaUser className="auth-input-icon" />
+                  <input
+                    id="fullname"
+                    type="text"
+                    className="input-field-custom"
+                    placeholder="Your full name"
+                    required
+                    value={register.fullname}
+                    onChange={(e) => setregister({ ...register, fullname: e.target.value })}
+                  />
+                </div>
+              </div>
 
-          <div className="form-group-custom">
-            <label htmlFor="phone" className="phone">
-              Phone Number <span className="required-star">*</span>
-            </label>
-            <input
-              id="phone"
-              type="text"
-              className="input-field-custom"
-              required
-              value={register.phone}
-              onChange={(e) => setregister({ ...register, phone: e.target.value })}
-            />
-          </div>
+              <div className="form-group-custom">
+                <label htmlFor="email">
+                  Email Address <span className="required-star">*</span>
+                </label>
+                <div className="auth-input-wrapper">
+                  <FaEnvelope className="auth-input-icon" />
+                  <input
+                    id="email"
+                    type="email"
+                    className="input-field-custom"
+                    placeholder="you@example.com"
+                    required
+                    value={register.email}
+                    onChange={(e) => setregister({ ...register, email: e.target.value })}
+                  />
+                </div>
+              </div>
 
-          <div className="form-group-custom">
-            <label htmlFor="age" className="age">Age</label>
-            <input
-              id="age"
-              type="number"
-              className="input-field-custom"
-              value={register.age}
-              onChange={(e) => setregister({ ...register, age: e.target.value })}
-            />
-          </div>
+              <div className="form-group-custom">
+                <label htmlFor="phone">
+                  Phone Number <span className="required-star">*</span>
+                </label>
+                <div className="auth-input-wrapper">
+                  <FaPhoneAlt className="auth-input-icon" />
+                  <input
+                    id="phone"
+                    type="text"
+                    className="input-field-custom"
+                    placeholder="+216 ..."
+                    required
+                    value={register.phone}
+                    onChange={(e) => setregister({ ...register, phone: e.target.value })}
+                  />
+                </div>
+              </div>
 
-          <div className="form-group-custom">
-            <label htmlFor="weight" className="weight">Weight (kg)</label>
-            <input
-              id="weight"
-              type="number"
-              className="input-field-custom"
-              value={register.weight}
-              onChange={(e) => setregister({ ...register, weight: e.target.value })}
-            />
-          </div>
+              <div className="form-group-custom">
+                <label htmlFor="age">Age</label>
+                <div className="auth-input-wrapper">
+                  <FaRulerVertical className="auth-input-icon" />
+                  <input
+                    id="age"
+                    type="number"
+                    className="input-field-custom"
+                    placeholder="Your age"
+                    value={register.age}
+                    onChange={(e) => setregister({ ...register, age: e.target.value })}
+                  />
+                </div>
+              </div>
 
-          <div className="form-group-custom">
-            <label htmlFor="gender" className="gender"s>Gender</label>
-            <select 
-              id="gender"
-              className="input-field-custom"
-              onChange={(e) => setregister({ ...register, gender: e.target.value })}
-              value={register.gender}
-            >
-              <option value="">Choose gender</option>
-              <option value="male">Men</option>
-              <option value="female">Women</option>
-            </select>
-          </div>
+              <div className="form-group-custom">
+                <label htmlFor="weight">Weight (kg)</label>
+                <div className="auth-input-wrapper">
+                  <FaWeight className="auth-input-icon" />
+                  <input
+                    id="weight"
+                    type="number"
+                    className="input-field-custom"
+                    placeholder="Your weight"
+                    value={register.weight}
+                    onChange={(e) => setregister({ ...register, weight: e.target.value })}
+                  />
+                </div>
+              </div>
 
-          <div className="form-group-custom">
-            <label htmlFor="password" className="password-label">
-              Password <span className="required-star">*</span>
-            </label>
-            <div className="password-input-wrapper">
-              <input
-                id="password"
-                type={showPassword ? "text" : "password"}
-                className="input-field-custom"
-                required
-                value={register.password}
-                onChange={(e) => setregister({ ...register, password: e.target.value })}
-              />
-              <button
-                type="button"
-                className="toggle-password-btn"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-               
-              </button>
+              <div className="form-group-custom">
+                <label htmlFor="gender">Gender</label>
+                <div className="auth-input-wrapper">
+                  <FaVenusMars className="auth-input-icon" />
+                  <select
+                    id="gender"
+                    className="input-field-custom"
+                    onChange={(e) => setregister({ ...register, gender: e.target.value })}
+                    value={register.gender}
+                  >
+                    <option value="">Choose gender</option>
+                    <option value="male">Men</option>
+                    <option value="female">Women</option>
+                  </select>
+                </div>
+              </div>
             </div>
-          </div>
 
-          <button type="submit" className="submit-login-btn">
-            Register
-          </button>
+            <div className="form-group-custom">
+              <label htmlFor="password">
+                Password <span className="required-star">*</span>
+              </label>
+              <div className="auth-input-wrapper password-input-wrapper">
+                <FaLock className="auth-input-icon" />
+                <input
+                  id="password"
+                  type={showPassword ? "text" : "password"}
+                  className="input-field-custom"
+                  placeholder="Create a secure password"
+                  required
+                  value={register.password}
+                  onChange={(e) => setregister({ ...register, password: e.target.value })}
+                />
+                <button
+                  type="button"
+                  className="toggle-password-btn"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <FaEyeSlash /> : <FaEye />}
+                </button>
+              </div>
+            </div>
 
-          <div className="login-footer-links">
+            <button type="submit" className="submit-login-btn">
+              Register
+            </button>
+
             <p className="register-redirect">
-              Aleardy have an account ? <Link to="/login">Login </Link>
+              Already have an account? <Link to="/login">Login</Link>
             </p>
-          </div>
-        </form>
-      </div>
-    </div>
+          </form>
+        </div>
+      </section>
+    </main>
   );
 }
 
