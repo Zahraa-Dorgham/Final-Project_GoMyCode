@@ -40,6 +40,7 @@ export const userCurrent = createAsyncThunk("auth/current", async () => {
 const initialState = {
     user: null,
     status: null,
+    error: null,
 };
 
 export const userSlice = createSlice({
@@ -48,8 +49,13 @@ export const userSlice = createSlice({
     reducers: {
         logout: (state, action) => {
             state.user = null;
+            state.status = null;
+            state.error = null;
             localStorage.removeItem("token");
         },
+        clearError: (state) => {
+            state.error = null;
+        }
     },
 
     extraReducers: (builder) => {
@@ -65,19 +71,21 @@ export const userSlice = createSlice({
             })
             .addCase(userRegister.rejected, (state, action) => {
                 state.status = "fail";
-                console.log("Register failed:", action.error);
+                state.error = action.error.message;
             })
             .addCase(userlogin.pending, (state) => {
                 state.status = "pending";
+                state.error = null;
             })
             .addCase(userlogin.fulfilled, (state, action) => {
                 state.status = "successsss";
                 state.user = action.payload.user;
                 localStorage.setItem("token", action.payload.token);
-                console.log("Login successful, user:", action.payload.user);
+                state.error = null;
             })
-            .addCase(userlogin.rejected, (state) => {
+            .addCase(userlogin.rejected, (state, action) => {
                 state.status = "fail";
+                state.error = "Identifiants incorrects ou problème de connexion";
             })
             .addCase(userCurrent.pending, (state) => {
                 state.status = "pending";
@@ -94,6 +102,6 @@ export const userSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { logout } = userSlice.actions;
+export const { logout, clearError } = userSlice.actions;
 
 export default userSlice.reducer;

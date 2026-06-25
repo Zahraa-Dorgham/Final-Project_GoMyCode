@@ -24,20 +24,20 @@ const Footer = () => {
                     <div className="col-md-3">
                         <h4 className="footer-title">ABOUT</h4>
                         <ul className="footer-links">
-                            <li><a href="#">aaaaa</a></li>
-                            <li><a href="#">aaaa</a></li>
-                            <li><a href="#">aaaaaaaaa</a></li>
-                            <li><a href="#">aaaaaa</a></li>
+                            <li><a href="/">Home</a></li>
+                            <li><a href="/Classes">Classes</a></li>
+                            <li><a href="/Salles">Salles</a></li>
+                            <li><a href="/Coaches">Coaches</a></li>
                         </ul>
                     </div>
 
                     <div className="col-md-3">
                         <h4 className="footer-title">CLASSES</h4>
                         <ul className="footer-links">
-                            <li><a href="#">bbbb</a></li>
-                            <li><a href="#">bbbbb</a></li>
-                            <li><a href="#">bbb</a></li>
-                            <li><a href="#">bbb</a></li>
+                            <li><a href="/Classes">Pilates</a></li>
+                            <li><a href="/Classes">Yoga</a></li>
+                            <li><a href="/Classes">Misculation</a></li>
+                            <li><a href="/Classes">Natation</a></li>
                         </ul>
                     </div>
 
@@ -49,7 +49,7 @@ const Footer = () => {
                         </div>
                         <div className="contact-item">
                             <FaPhoneAlt className="icon" />
-                            <span>+216 55789249</span>
+                            <span>+216 55 789 249</span>
                         </div>
                     </div>
                 </div>

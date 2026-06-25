@@ -255,13 +255,13 @@
 .class-card {
     position: relative;
     min-height: 430px;
-    border-radius: 8px;
+    border-radius: 24px; /* More rounded as requested for a better look */
     overflow: hidden;
     background: #111111;
     box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
     cursor: pointer;
     isolation: isolate;
-    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.5s ease;
 }
 
 .class-card:hover {
@@ -418,25 +418,22 @@
     color: #ff5e62;
     font-family: 'Montserrat', sans-serif;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 1.1rem;
     text-transform: uppercase;
     display: block;
     margin-bottom: 15px;
-    position: relative;
-    right: 147px;
-    bottom: 100px;
+    letter-spacing: 2px;
 }
 
 .features-text-block h2 {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 61px;
+    font-weight: 900;
+    font-size: clamp(2.5rem, 5vw, 3.8rem);
     line-height: 1.1;
     color: #111111;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     font-style: italic;
-    position: relative;
-    bottom: 49px;
+    text-transform: uppercase;
 }
 
 .features-grid-row {

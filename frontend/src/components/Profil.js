@@ -30,11 +30,8 @@ import {
 import './Profil.css';
 
 const statusLabels = {
-  valide: 'Confirmed',
-  refuse: 'Declined',
-  pending: 'Pending',
-  'en attente': 'Pending',
-  en_attente: 'Pending',
+  reserved: 'Reserved',
+  canceled: 'Canceled',
 };
 
 const coachingStatusLabels = {
@@ -44,11 +41,8 @@ const coachingStatusLabels = {
 };
 
 const statusIcons = {
-  valide: <FaCheckCircle />,
-  refuse: <FaTimesCircle />,
-  pending: <FaClock />,
-  'en attente': <FaClock />,
-  en_attente: <FaClock />,
+  reserved: <FaCheckCircle />,
+  canceled: <FaTimesCircle style={{color: '#e53e3e'}} />,
 };
 
 const coachingStatusIcons = {
@@ -81,7 +75,7 @@ const formatDate = (date) => {
   }).format(parsedDate);
 };
 
-const normalizeStatus = (status = 'en_attente') =>
+const normalizeStatus = (status = 'reserved') =>
   status.toLowerCase().replace(/\s+/g, '-').replace(/_/g, '-');
 
 const getReservationDateValue = (reservation) => {
@@ -152,10 +146,16 @@ const Profil = () => {
       return;
     }
 
+    // Redirect admins to admin dashboard
+    if (user.role === 'admin') {
+      navigate('/admin');
+      return;
+    }
+
     dispatch(getUserReservations(user._id));
     dispatch(getCoaches());
     loadUserCoachingRequests(user._id);
-  }, [user, userStatus, navigate]);
+  }, [user, userStatus, navigate, dispatch, loadUserCoachingRequests]);
 
   useEffect(() => {
     if (!user) return;
@@ -178,15 +178,20 @@ const Profil = () => {
   const reservations = useMemo(() => userReservations || [], [userReservations]);
 
   const profileStats = useMemo(() => {
-    const confirmed = reservations.filter((res) => res.status === 'valide').length;
-    const refused = reservations.filter((res) => res.status === 'refuse').length;
-    const pending = reservations.filter((res) => res.status !== 'valide' && res.status !== 'refuse').length;
-    const totalSpent = reservations.reduce((total, res) => total + Number(res.prix || res.classe?.prix || 0), 0);
+    const reserved = reservations.filter((res) => res.status === 'reserved').length;
+    const canceled = reservations.filter((res) => res.status === 'canceled').length;
+    const totalSpent = reservations.reduce((total, res) => {
+      // Only count spent money for active reservations
+      if (res.status === 'reserved') {
+        return total + Number(res.prix || res.classe?.prix || 0);
+      }
+      return total;
+    }, 0);
     const upcoming = [...reservations]
-      .filter((res) => res.status !== 'refuse')
+      .filter((res) => res.status === 'reserved')
       .sort((a, b) => getReservationDateValue(a) - getReservationDateValue(b))[0];
 
-    return { confirmed, refused, pending, totalSpent, upcoming };
+    return { confirmed: reserved, canceled, totalSpent, upcoming };
   }, [reservations]);
 
   if (!user) return null;
@@ -337,21 +342,21 @@ const Profil = () => {
                 <span><FaCalendarCheck /></span>
                 <div>
                   <strong>{reservations.length}</strong>
-                  <small>Bookings</small>
+                  <small>Total Bookings</small>
                 </div>
               </div>
               <div className="profile-stat-card">
                 <span><FaCheckCircle /></span>
                 <div>
                   <strong>{profileStats.confirmed}</strong>
-                  <small>Confirmed</small>
+                  <small>Active Reserved</small>
                 </div>
               </div>
               <div className="profile-stat-card">
-                <span><FaClock /></span>
+                <span><FaTimesCircle style={{color: '#e53e3e'}} /></span>
                 <div>
-                  <strong>{profileStats.pending}</strong>
-                  <small>Pending</small>
+                  <strong>{profileStats.canceled}</strong>
+                  <small>Cancellations</small>
                 </div>
               </div>
               <div className="profile-stat-card">
@@ -385,6 +390,27 @@ const Profil = () => {
                     const gymName = res.classe?.salleDeSport?.name || 'Gym to be confirmed';
                     const price = res.prix || res.classe?.prix || 0;
 
+                    const canCancel = (() => {
+                      if (res.status === 'canceled') return false;
+                      if (!res.classe?.date || !res.classe?.time) return false;
+                      const cDate = new Date(res.classe.date);
+                      const [h, m] = res.classe.time.split(':');
+                      cDate.setHours(parseInt(h), parseInt(m), 0);
+                      return (cDate - new Date()) / (1000 * 60 * 60) >= 48;
+                    })();
+
+                    const handleCancel = async (resId) => {
+                      if (window.confirm('Are you sure you want to cancel this reservation?')) {
+                        try {
+                          await axios.delete(`http://localhost:5000/reservation/cancel/${resId}`);
+                          dispatch(getUserReservations(user._id));
+                          alert('Reservation cancelled successfully.');
+                        } catch (err) {
+                          alert(err.response?.data?.msg || 'Error cancelling reservation');
+                        }
+                      }
+                    };
+
                     return (
                       <article className="profile-reservation-card" key={res._id || `${className}-${index}`}>
                         <div className="profile-reservation-glow" />
@@ -416,9 +442,16 @@ const Profil = () => {
 
                         <div className="profile-reservation-footer">
                           <strong>{price} TND</strong>
-                          <button type="button" onClick={() => navigate('/classes')}>
-                            Change
-                          </button>
+                          <div style={{display: 'flex', gap: 10}}>
+                            {canCancel && (
+                              <button type="button" className="cancel-pill-btn" onClick={() => handleCancel(res._id)}>
+                                Cancel
+                              </button>
+                            )}
+                            <button type="button" onClick={() => navigate('/classes')}>
+                              Explore
+                            </button>
+                          </div>
                         </div>
                       </article>
                     );
@@ -575,11 +608,11 @@ const Profil = () => {
               </Form.Group>
               <Form.Group>
                 <Form.Label>Age</Form.Label>
-                <Form.Control type="number" min="10" name="age" value={profileForm.age} onChange={handleProfileChange} />
+                <Form.Control type="number" min="1" name="age" value={profileForm.age} onChange={handleProfileChange} />
               </Form.Group>
               <Form.Group>
                 <Form.Label>Weight</Form.Label>
-                <Form.Control type="number" min="20" name="weight" value={profileForm.weight} onChange={handleProfileChange} />
+                <Form.Control type="number" min="1" name="weight" value={profileForm.weight} onChange={handleProfileChange} />
               </Form.Group>
             </div>
           </Modal.Body>

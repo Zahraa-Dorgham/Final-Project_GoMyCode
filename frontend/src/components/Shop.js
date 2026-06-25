@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart } from '../redux/panierSlice';
 import './Shop.css';
 
 const logos = [
@@ -26,7 +28,7 @@ const fallbackImages = [
 
 const formatPrice = (price) => {
   const amount = Number(price || 0);
-  return `$${amount.toFixed(2)}`;
+  return `${amount.toFixed(2)} TND`;
 };
 
 const getProductImages = (product, index = 0) => {
@@ -62,6 +64,8 @@ const getProductOptionLabel = (category) => {
 };
 
 function Shop() {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.user);
   const [products, setProducts] = useState([]);
   const [categoryFilter, setCategoryFilter] = useState('all');
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -113,6 +117,28 @@ function Shop() {
     setTimeout(() => {
       document.querySelector('.shop-product-detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 0);
+  };
+
+  const handleAddToCart = () => {
+    if (!user) {
+      alert('Veuillez vous connecter pour ajouter des articles au panier.');
+      return;
+    }
+
+    if (!selectedProduct) return;
+
+    if (selectedOptions.length > 0 && !size) {
+      alert('Veuillez choisir une option (taille/pointure).');
+      return;
+    }
+
+    dispatch(addToCart({
+      product: selectedProduct,
+      quantity: quantity,
+      size: size
+    }));
+
+    alert('Produit ajouté au panier !');
   };
 
   const selectedImages = selectedProduct ? getProductImages(selectedProduct, selectedProduct.shopIndex) : [];
@@ -248,7 +274,13 @@ function Shop() {
                 onChange={(event) => setQuantity(Math.max(1, Number(event.target.value)))}
                 aria-label="Quantity"
               />
-              <button type="button" className="shop-add-cart-btn">Add to cart</button>
+              <button
+                type="button"
+                className="shop-add-cart-btn"
+                onClick={handleAddToCart}
+              >
+                Add to cart
+              </button>
             </div>
 
             <div className="shop-detail-meta">

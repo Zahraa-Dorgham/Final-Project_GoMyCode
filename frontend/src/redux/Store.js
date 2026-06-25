@@ -4,6 +4,7 @@ import salleReducer from "./salleSlice";
 import coachReducer from "./coachSlice";
 import classeReducer from "./classeSlice";
 import reservationReducer from "./reservationSlice";
+import cartReducer from "./panierSlice";
 
 const store = configureStore({
     reducer: {
@@ -11,7 +12,8 @@ const store = configureStore({
         salle: salleReducer,
         coach: coachReducer,
         classe: classeReducer,
-        reservation: reservationReducer
+        reservation: reservationReducer,
+        cart: cartReducer
     }
 });
 

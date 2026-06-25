@@ -16,7 +16,7 @@ router.post('/add', async (req, res) => {
 // Get All Classes
 router.get('/all', async (req, res) => {
     try {
-        const classes = await Classe.find().populate('coach').populate('salleDeSport');
+        const classes = await Classe.find().populate('coach').populate('salleDeSport').populate('reservations');
         res.status(200).send({ msg: 'All classes', classes });
     } catch (error) {
         res.status(500).send({ msg: 'Error fetching classes', error: error.message });
@@ -51,6 +51,44 @@ router.delete('/:id', async (req, res) => {
         res.status(200).send({ msg: 'Classe deleted' });
     } catch (error) {
         res.status(500).send({ msg: 'Error deleting classe', error: error.message });
+    }
+});
+
+// Reserve a class
+router.post('/reserve/:id', async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const classe = await Classe.findById(req.params.id);
+        if (!classe) return res.status(404).send({ msg: 'Class not found' });
+
+        if (classe.reservations.length >= classe.nbGroups) {
+            return res.status(400).send({ msg: 'Class is full' });
+        }
+
+        if (classe.reservations.includes(userId)) {
+            return res.status(400).send({ msg: 'User already reserved' });
+        }
+
+        classe.reservations.push(userId);
+        await classe.save();
+        res.status(200).send({ msg: 'Reservation successful', classe });
+    } catch (error) {
+        res.status(500).send({ msg: 'Error reserving class', error: error.message });
+    }
+});
+
+// Cancel a reservation
+router.post('/cancel/:id', async (req, res) => {
+    try {
+        const { userId } = req.body;
+        const classe = await Classe.findById(req.params.id);
+        if (!classe) return res.status(404).send({ msg: 'Class not found' });
+
+        classe.reservations = classe.reservations.filter(id => id.toString() !== userId);
+        await classe.save();
+        res.status(200).send({ msg: 'Cancellation successful', classe });
+    } catch (error) {
+        res.status(500).send({ msg: 'Error cancelling reservation', error: error.message });
     }
 });
 

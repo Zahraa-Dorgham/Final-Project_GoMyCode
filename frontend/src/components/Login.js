@@ -2,12 +2,12 @@ import React, { useEffect, useState } from "react";
 import { FaEnvelope, FaEye, FaEyeSlash, FaLock } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { userlogin } from "../redux/userSlice";
+import { userlogin, clearError } from "../redux/userSlice";
 
 function Login() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { status, user } = useSelector((state) => state.user);
+  const { status, user, error } = useSelector((state) => state.user);
   const [login, setlogin] = useState({
     email: "",
     password: "",
@@ -16,9 +16,19 @@ function Login() {
 
   useEffect(() => {
     if (status === "successsss" && user) {
-      navigate("/profil");
+      if (user.role === 'admin') {
+        navigate("/admin");
+      } else {
+        navigate("/profil");
+      }
     }
   }, [status, user, navigate]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearError());
+    };
+  }, [dispatch]);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -46,6 +56,12 @@ function Login() {
             <h2>Login</h2>
             <p>Enter your information to access your account.</p>
           </div>
+
+          {error && (
+            <div style={{ background: '#fff5f5', color: '#e53e3e', padding: '12px', borderRadius: '10px', marginBottom: '20px', fontSize: '14px', textAlign: 'center', border: '1px solid #fed7d7' }}>
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleLogin} className="auth-form-box">
             <div className="form-group-custom">

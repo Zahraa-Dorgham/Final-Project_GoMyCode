@@ -51,56 +51,137 @@ const Classes = () => {
     <div className="classes-page">
       <div className="classes-hero">
         <Container>
-          <h1>Nos Classes</h1>
-          <p>Trouvez le cours qui vous correspond et dépassez vos limites.</p>
+          <h1>Our Classes</h1>
+          <p>Find the class that suits you and push your limits.</p>
         </Container>
       </div>
 
       <Container className="my-5">
         <Row>
           {status === 'pending' ? (
-            <h3>Chargement...</h3>
+            <div className="text-center w-100 py-5">
+              <div className="spinner-border text-primary" role="status"></div>
+              <p className="mt-3">Fetching best classes for you...</p>
+            </div>
           ) : filteredClasses.length > 0 ? (
             filteredClasses.map((classe) => (
               <Col key={classe._id} lg={4} md={6} className="mb-4">
                 <Card className="classe-card border-0 shadow-sm h-100">
-                  <div className="position-relative">
-                    <Card.Img variant="top" src={classe.img || 'https://images.unsplash.com/photo-1518611012118-296072bb5602'} />
-                    <Badge bg="dark" className="position-absolute top-0 start-0 m-3 rounded-pill px-3 py-2">
+                  <div className="card-img-wrapper">
+                    <Card.Img
+                      variant="top"
+                      src={classe.img || 'https://images.unsplash.com/photo-1518611012118-296072bb5602'}
+                      className="card-img-top"
+                    />
+                    <div className="gender-badge rounded-pill">
                       {classe.gender}
-                    </Badge>
-                  </div>
-                  <Card.Body className="d-flex flex-column">
-                    <div className="d-flex justify-content-between align-items-start mb-2">
-                      <Card.Title className="fw-bold mb-0">{classe.name}</Card.Title>
-                      <h5 className="text-success fw-bold">{classe.prix} TND</h5>
                     </div>
-                    <Card.Text className="text-muted small mb-3">
-                      <i className="bi bi-clock me-1"></i> {classe.date} | {classe.time}
-                    </Card.Text>
-                    <hr />
-                    <div className="coach-info d-flex align-items-center mb-3">
-                      <img src={classe.coach?.img || 'https://www.w3schools.com/howto/img_avatar.png'} alt="coach" className="rounded-circle me-2" width="35" height="35" />
-                      <div>
-                        <p className="mb-0 small fw-bold">{classe.coach?.nameCoach}</p>
+                    <div className="price-tag">
+                      {classe.prix} TND
+                    </div>
+                  </div>
+
+                  <Card.Body className="p-4 d-flex flex-column">
+                    <Card.Title className="fw-bold mb-3 fs-4">{classe.name}</Card.Title>
+
+                    <div className="classe-details-row">
+                      <span className="detail-item">
+                        <i className="bi bi-calendar-check me-2"></i> 
+                        {new Date(classe.date).toLocaleDateString(undefined, { weekday: 'long', month: 'short', day: 'numeric' })}
+                      </span>
+                      <span className="detail-item">
+                        <i className="bi bi-clock me-2"></i> 
+                        {classe.time}
+                      </span>
+                    </div>
+
+                    <hr className="my-3 opacity-10" />
+
+                    <div className="coach-info d-flex align-items-center mb-4">
+                      <div className="coach-avatar-link">
+                        <img
+                          src={classe.coach?.img || 'https://www.w3schools.com/howto/img_avatar.png'}
+                          alt="coach"
+                        />
+                      </div>
+                      <div className="ms-3">
+                        <p className="mb-0 small fw-bold text-dark">{classe.coach?.nameCoach}</p>
                         <p className="mb-0 x-small text-muted">{classe.salleDeSport?.name}</p>
                       </div>
                     </div>
+
                     <Button
-                      variant="dark"
-                      className="mt-auto rounded-pill py-2 fw-bold"
+                      className="reserve-btn mt-auto"
                       onClick={() => handleReserve(classe)}
                     >
-                      Réserver Maintenant
+                      Reserve Now
                     </Button>
                   </Card.Body>
                 </Card>
               </Col>
             ))
           ) : (
-            <h3>{searchTerm ? 'Aucune classe trouvée' : 'Aucune classe disponible'}</h3>
+            <div className="text-center py-5 w-100">
+              <i className="bi bi-search fs-1 text-muted mb-3 d-block"></i>
+              <h3 className="text-muted">{searchTerm ? 'No sessions match your search' : 'No classes available right now'}</h3>
+            </div>
           )}
         </Row>
+
+        {/* New Weekly Schedule Summary Table */}
+        <div className="mt-5 pt-5">
+          <div className="section-title-wrapper mb-4">
+            <h2 className="fw-bold">Weekly Schedule Summary</h2>
+            <p className="text-muted">A quick overview of all sessions planned for this week.</p>
+          </div>
+          <div className="table-responsive bg-white p-4 rounded-4 shadow-sm">
+            <table className="table table-hover align-middle mb-0 custom-schedule-table">
+              <thead>
+                <tr>
+                  <th>Session</th>
+                  <th>Coach</th>
+                  <th>Schedule</th>
+                  <th>Location</th>
+                  <th>Category</th>
+                  <th>Groups</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {filteredClasses.map(c => (
+                  <tr key={c._id}>
+                    <td>
+                      <div className="fw-bold">{c.name}</div>
+                      <div className="small text-muted">{c.prix} TND</div>
+                    </td>
+                    <td>
+                      <div className="d-flex align-items-center">
+                        <img src={c.coach?.img || 'https://www.w3schools.com/howto/img_avatar.png'} alt="" className="rounded-circle me-2" style={{width: 30, height: 30, objectFit: 'cover'}} />
+                        <span className="small">{c.coach?.nameCoach}</span>
+                      </div>
+                    </td>
+                    <td>
+                      <div className="small">{new Date(c.date).toLocaleDateString('en-GB', {day: '2-digit', month: '2-digit'})}</div>
+                      <div className="fw-bold text-primary small">{c.time}</div>
+                    </td>
+                    <td className="small">{c.salleDeSport?.name}</td>
+                    <td><Badge bg="light" text="dark" className="border">{c.gender}</Badge></td>
+                    <td className="text-center fw-bold small">
+                      {(c.reservations?.length || 0)} / {(c.nbGroups || 10)}
+                    </td>
+                    <td>
+                      {c.reservations?.length >= c.nbGroups ? (
+                        <Badge bg="danger" className="rounded-pill px-3">Full</Badge>
+                      ) : (
+                        <Badge bg="success" className="rounded-pill px-3">Available</Badge>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </Container>
     </div>
   );

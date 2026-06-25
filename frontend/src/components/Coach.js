@@ -50,7 +50,7 @@ const Coach = () => {
       <section className="coaches-hero">
         <Container>
           <span className="coaches-kicker">Team Fit Club</span>
-          <h1>Our <br />Coaches</h1>
+          <h1>Our Coaches</h1>
         </Container>
       </section>
 
@@ -108,7 +108,7 @@ const Coach = () => {
                           <div className="coach-meta-item">
                             <span><FaPhoneAlt /></span>
                             <div>
-                              <small>Téléphone</small>
+                              <small>Phone</small>
                               <strong>{coach.phone}</strong>
                             </div>
                           </div>

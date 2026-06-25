@@ -32,15 +32,20 @@ const Salles = () => {
                   <div className="card-img-wrapper">
                     <Card.Img variant="top" src={salle.img || 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48'} alt={salle.name} />
                   </div>
-                  <Card.Body>
+                  <Card.Body className="d-flex flex-column text-center">
                     <Card.Title className="fw-bold">{salle.name}</Card.Title>
-                    <Card.Text className="text-muted">
-                      <i className="bi bi-geo-alt-fill me-2"></i>{salle.localisation}
+                    <div className="location-info justify-content-center">
+                      <i className="bi bi-geo-alt-fill"></i>
+                      <span>{salle.localisation}</span>
+                    </div>
+                    <Card.Text className="salle-description">
+                      {salle.description}
                     </Card.Text>
-                    <Card.Text>{salle.description}</Card.Text>
-                    <div className="d-flex justify-content-between align-items-center mt-auto">
-                      <span className="text-primary fw-bold">{salle.phone}</span>
-                      <Button variant="outline-dark" className="rounded-pill px-4">View Details</Button>
+                    <div className="d-flex justify-content-center mt-auto">
+                      <div className="phone-tag">
+                        <i className="bi bi-telephone-fill"></i>
+                        <span>{salle.phone}</span>
+                      </div>
                     </div>
                   </Card.Body>
                 </Card>

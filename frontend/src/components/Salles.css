@@ -4,12 +4,15 @@
 }
 
 .salles-hero {
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+    background: 
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+    url('https://i.pinimg.com/1200x/bd/fb/37/bdfb3745424c59afc8b8f4403bab1453.jpg');
     background-size: cover;
     background-position: center;
     color: white;
     padding: 100px 0;
     text-align: center;
+    height: 600px;
 }
 
 .salles-hero h1 {
@@ -17,6 +20,9 @@
     font-weight: 800;
     margin-bottom: 20px;
     letter-spacing: -1px;
+        top: 150px;
+            position: relative;
+
 }
 
 .salles-hero p {
@@ -24,51 +30,103 @@
     max-width: 600px;
     margin: 0 auto;
     opacity: 0.9;
+    position: relative;
+    top: 150px;
 }
 
 .salle-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border-radius: 15px;
+    transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+    border-radius: 32px;
     overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.03);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
 }
 
 .salle-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-15px);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.08) !important;
 }
 
 .card-img-wrapper {
-    height: 200px;
+    height: 280px;
     overflow: hidden;
+    position: relative;
 }
 
 .card-img-wrapper img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 1.2s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 .salle-card:hover .card-img-wrapper img {
     transform: scale(1.1);
 }
 
+.salle-card .card-body {
+    padding: 32px;
+}
+
 .salle-card .card-title {
-    font-size: 1.25rem;
-    margin-bottom: 15px;
+    font-size: 1.6rem;
+    font-weight: 900 !important;
+    margin-bottom: 12px;
+    color: #111;
+    letter-spacing: -0.5px;
 }
 
-.salle-card .card-text {
+.location-info {
+    font-size: 0.9rem;
+    color: #888;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+}
+
+.location-info i {
+    color: #A3FF00;
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+.salle-description {
     font-size: 0.95rem;
-    line-height: 1.6;
+    color: #666;
+    line-height: 1.7;
+    margin-bottom: 30px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-align: center; /* Enforce center for professional look */
 }
 
-.text-primary {
-    color: #A3FF00 !important; /* Flourish green matching navbar */
+.phone-tag {
+    background: #f8f9fa;
+    padding: 10px 20px;
+    border-radius: 14px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #111;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s;
+    border: 1px solid rgba(0,0,0,0.05);
 }
 
-.btn-outline-dark:hover {
-    background-color: #A3FF00;
-    border-color: #A3FF00;
-    color: black;
+.salle-card:hover .phone-tag {
+    background: #A3FF00;
+    border-color: transparent;
+}
+
+.phone-tag i {
+    color: #A3FF00;
+}
+
+.salle-card:hover .phone-tag i {
+    color: #000;
 }

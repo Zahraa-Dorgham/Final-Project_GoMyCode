@@ -10,6 +10,7 @@ import { logout } from '../redux/userSlice';
 
 function Navbarr() {
   const { user } = useSelector((state) => state.user);
+  const { items } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -60,6 +61,9 @@ function Navbarr() {
                 className="nav-item-custom"
               >
                 <NavDropdown.Item as={Link} to="/profil">Profile</NavDropdown.Item>
+                {user.role === 'admin' && (
+                  <NavDropdown.Item as={Link} to="/admin">Admin Dashboard</NavDropdown.Item>
+                )}
                 <NavDropdown.Divider />
                 <NavDropdown.Item onClick={() => dispatch(logout())}>Logout</NavDropdown.Item>
               </NavDropdown>
@@ -87,7 +91,9 @@ function Navbarr() {
             <a href="https://facebook.com" target="_blank" rel="noreferrer" className="icon-link"><FaFacebookF /></a> */}
             <Link to="/panier" className="cart-icon-container" aria-label="Shopping cart">
               <FaShoppingBag className="cart-icon" />
-              <span className="cart-badge">0</span>
+              {items.length > 0 && (
+                <span className="cart-badge">{items.reduce((acc, item) => acc + item.quantity, 0)}</span>
+              )}
             </Link>
           </div>
         </Navbar.Collapse>

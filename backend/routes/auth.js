@@ -32,7 +32,7 @@ router.post("/register", registerRule(), validation, async (req, res) => {
             age,
             weight,
             gender,
-            role: "user"
+            role: req.body.role || "user"
         });
 
         await newUser.save();

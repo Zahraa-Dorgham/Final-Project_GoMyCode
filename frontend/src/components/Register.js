@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { FaEnvelope, FaEye, FaEyeSlash, FaLock, FaPhoneAlt, FaRulerVertical, FaUser, FaVenusMars, FaWeight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { userRegister } from "../redux/userSlice";
+import { userRegister, clearError } from "../redux/userSlice";
 
 function Register() {
   const [register, setregister] = useState({
@@ -17,13 +17,23 @@ function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { status, user } = useSelector((state) => state.user);
+  const { status, user, error } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (status === "successsss" && user) {
-      navigate("/profil");
+      if (user.role === 'admin') {
+        navigate("/admin");
+      } else {
+        navigate("/profil");
+      }
     }
   }, [status, user, navigate]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearError());
+    };
+  }, [dispatch]);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -51,6 +61,12 @@ function Register() {
             <h2>Register</h2>
             <p>Complete your profile to join the community.</p>
           </div>
+
+          {error && (
+            <div style={{ background: '#fff5f5', color: '#e53e3e', padding: '12px', borderRadius: '10px', marginBottom: '20px', fontSize: '14px', textAlign: 'center', border: '1px solid #fed7d7' }}>
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleRegister} className="auth-form-box">
             <div className="auth-form-grid">
@@ -115,6 +131,7 @@ function Register() {
                   <input
                     id="age"
                     type="number"
+                    min="1"
                     className="input-field-custom"
                     placeholder="Your age"
                     value={register.age}
@@ -130,6 +147,7 @@ function Register() {
                   <input
                     id="weight"
                     type="number"
+                    min="1"
                     className="input-field-custom"
                     placeholder="Your weight"
                     value={register.weight}

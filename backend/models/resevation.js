@@ -26,8 +26,8 @@ const reservationSchema = new schema({
     },
     status: {
         type: String,
-        enum: ['en_attente', 'valide', 'refuse'],
-        default: 'en_attente'
+        enum: ['reserved', 'canceled'],
+        default: 'reserved'
     }
 });
 

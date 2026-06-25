@@ -17,10 +17,11 @@ const classeSchema = new schema({
     },
     prix: {
         type: Number,
-        required: true
+        required: true,
+        min: 0
     },
     date: {
-        type: String, 
+        type: Date, 
         required: true
     },
     time: {
@@ -36,7 +37,17 @@ const classeSchema = new schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'SalleDeSport',
         required: true
-    }
+    },
+    nbGroups: {
+        type: Number,
+        required: true,
+        default: 10,
+        min: 1
+    },
+    reservations: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }]
 });
 
 module.exports = mongoose.model('Classe', classeSchema);
