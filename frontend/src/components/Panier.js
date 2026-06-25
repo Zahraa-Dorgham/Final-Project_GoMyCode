@@ -23,7 +23,7 @@ const Panier = () => {
         if (items.length === 0) return;
         setLoading(true);
         try {
-            await axios.post('http://localhost:5000/order/add', {
+            await axios.post('https://final-project-go-my-code.vercel.app/order/add', {
                 user: user._id,
                 items: items.map(item => ({
                     product: item._id,

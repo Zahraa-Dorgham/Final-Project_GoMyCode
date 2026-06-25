@@ -21,7 +21,7 @@ function AddClass({ coaches, salles, ping, setping }) {
 
   const handleAdd = async () => {
     try {
-      await axios.post('http://localhost:5000/classe/add', newClass);
+      await axios.post('https://final-project-go-my-code.vercel.app/classe/add', newClass);
       alert("Session créée");
       setping(!ping);
       handleClose();

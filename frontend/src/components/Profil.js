@@ -126,7 +126,7 @@ const Profil = () => {
     setIsLoadingCoaching(true);
 
     try {
-      const response = await axios.get(`http://localhost:5000/suivi/user/${userId}`);
+      const response = await axios.get(`https://final-project-go-my-code.vercel.app/suivi/user/${userId}`);
       setCoachingRequests(response.data.suivis || []);
     } catch (error) {
       setCoachingRequests([]);
@@ -218,7 +218,7 @@ const Profil = () => {
     setProfileMessage({ type: '', text: '' });
 
     try {
-      await axios.put(`http://localhost:5000/auth/${user._id}`, profileForm);
+      await axios.put(`https://final-project-go-my-code.vercel.app/auth/${user._id}`, profileForm);
       await dispatch(userCurrent()).unwrap();
       setProfileMessage({ type: 'success', text: 'Profile updated successfully.' });
       setTimeout(() => setShowEditModal(false), 650);
@@ -235,7 +235,7 @@ const Profil = () => {
     setCoachingMessage({ type: '', text: '' });
 
     try {
-      await axios.post('http://localhost:5000/suivi/add', {
+      await axios.post('https://final-project-go-my-code.vercel.app/suivi/add', {
         ...coachingForm,
         user: user._id,
       });
@@ -402,7 +402,7 @@ const Profil = () => {
                     const handleCancel = async (resId) => {
                       if (window.confirm('Are you sure you want to cancel this reservation?')) {
                         try {
-                          await axios.delete(`http://localhost:5000/reservation/cancel/${resId}`);
+                          await axios.delete(`https://final-project-go-my-code.vercel.app/reservation/cancel/${resId}`);
                           dispatch(getUserReservations(user._id));
                           alert('Reservation cancelled successfully.');
                         } catch (err) {
