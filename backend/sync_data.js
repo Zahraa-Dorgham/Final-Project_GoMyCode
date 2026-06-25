@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const Reservation = require('./backend/models/resevation');
-const Classe = require('./backend/models/classes');
+const Reservation = require('./models/resevation');
+const Classe = require('./models/classes');
 
-mongoose.connect('mongodb://127.0.0.1:27017/pulsehub') // Assuming this is the DB name from context if available, or I'll just use a generic name
+mongoose.connect('mongodb://127.0.0.1:27017/pulsehub') 
     .then(async () => {
         console.log('Connected to MongoDB');
         const reservations = await Reservation.find();
