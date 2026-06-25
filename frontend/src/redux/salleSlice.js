@@ -23,7 +23,7 @@ export const addSalle = createAsyncThunk("salle/add", async (newSalle) => {
 
 export const deleteSalle = createAsyncThunk("salle/delete", async (id) => {
     try {
-        let response = await axios.delete(`http://localhost:5000/salle/${id}`);
+        let response = await axios.delete(`https://final-project-go-my-code.vercel.app/salle/${id}`);
         return id;
     } catch (error) {
         console.log(error);
@@ -33,7 +33,7 @@ export const deleteSalle = createAsyncThunk("salle/delete", async (id) => {
 
 export const updateSalle = createAsyncThunk("salle/update", async ({ id, updatedSalle }) => {
     try {
-        let response = await axios.put(`http://localhost:5000/salle/${id}`, updatedSalle);
+        let response = await axios.put(`https://final-project-go-my-code.vercel.app/salle/${id}`, updatedSalle);
         return response.data;
     } catch (error) {
         console.log(error);

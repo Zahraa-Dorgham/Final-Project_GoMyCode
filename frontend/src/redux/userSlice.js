@@ -5,7 +5,7 @@ export const userRegister = createAsyncThunk("auth/register", async (user) => {
     try {
         console.log("Sending register data:", user);
         let response = await axios.post(
-            "http://localhost:5000/auth/register",
+            "https://final-project-go-my-code.vercel.app/auth/register",
             user
         );
         console.log("Register response:", response);
@@ -17,7 +17,7 @@ export const userRegister = createAsyncThunk("auth/register", async (user) => {
 });
 export const userlogin = createAsyncThunk("auth/login", async (user) => {
     try {
-        let response = await axios.post("http://localhost:5000/auth/login", user);
+        let response = await axios.post("https://final-project-go-my-code.vercel.app/auth/login", user);
         return await response.data;
     } catch (error) {
         console.log(error);
@@ -26,7 +26,7 @@ export const userlogin = createAsyncThunk("auth/login", async (user) => {
 });
 export const userCurrent = createAsyncThunk("auth/current", async () => {
     try {
-        let response = await axios.get("http://localhost:5000/auth/current", {
+        let response = await axios.get("https://final-project-go-my-code.vercel.app/auth/current", {
             headers:{
                 Authorization: localStorage.getItem("token"),
             },

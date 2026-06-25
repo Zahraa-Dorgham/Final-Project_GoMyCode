@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const getClasses = createAsyncThunk("classe/get", async () => {
     try {
-        let response = await axios.get("http://localhost:5000/classe/all");
+        let response = await axios.get("https://final-project-go-my-code.vercel.app/classe/all");
         return response.data;
     } catch (error) {
         console.log(error);
@@ -13,7 +13,7 @@ export const getClasses = createAsyncThunk("classe/get", async () => {
 
 export const addClasse = createAsyncThunk("classe/add", async (newClasse) => {
     try {
-        let response = await axios.post("http://localhost:5000/classe/add", newClasse);
+        let response = await axios.post("https://final-project-go-my-code.vercel.app/classe/add", newClasse);
         return response.data;
     } catch (error) {
         console.log(error);

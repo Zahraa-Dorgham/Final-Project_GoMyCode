@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const addReservation = createAsyncThunk("reservation/add", async (newRes) => {
     try {
-        let response = await axios.post("http://localhost:5000/reservation/add", newRes);
+        let response = await axios.post("https://final-project-go-my-code.vercel.app/reservation/add", newRes);
         return response.data;
     } catch (error) {
         console.log(error);
@@ -13,7 +13,7 @@ export const addReservation = createAsyncThunk("reservation/add", async (newRes)
 
 export const getUserReservations = createAsyncThunk("reservation/getUser", async (userId) => {
     try {
-        let response = await axios.get(`http://localhost:5000/reservation/user/${userId}`);
+        let response = await axios.get(`https://final-project-go-my-code.vercel.app/reservation/user/${userId}`);
         return response.data;
     } catch (error) {
         console.log(error);
