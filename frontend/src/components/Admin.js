@@ -63,13 +63,13 @@ const Admin = () => {
   const fetchAllData = async () => {
     try {
       const [usersRes, classesRes, coachesRes, productsRes, sallesRes, reservationsRes, ordersRes] = await Promise.all([
-        axios.get('http://localhost:5000/auth/').catch(() => ({ data: { users: [] } })),
-        axios.get('http://localhost:5000/classe/all').catch(() => ({ data: { classes: [] } })),
-        axios.get('http://localhost:5000/coach/all').catch(() => ({ data: { coaches: [] } })),
-        axios.get('http://localhost:5000/shop/all').catch(() => ({ data: { products: [] } })),
-        axios.get('http://localhost:5000/salle/all').catch(() => ({ data: { salles: [] } })),
-        axios.get('http://localhost:5000/reservation/all').catch(() => ({ data: { reservations: [] } })),
-        axios.get('http://localhost:5000/order/all').catch(() => ({ data: { orders: [] } })),
+        axios.get('https://final-project-go-my-code.vercel.app/auth/').catch(() => ({ data: { users: [] } })),
+        axios.get('https://final-project-go-my-code.vercel.app/classe/all').catch(() => ({ data: { classes: [] } })),
+        axios.get('https://final-project-go-my-code.vercel.app/coach/all').catch(() => ({ data: { coaches: [] } })),
+        axios.get('https://final-project-go-my-code.vercel.app/shop/all').catch(() => ({ data: { products: [] } })),
+        axios.get('https://final-project-go-my-code.vercel.app/salle/all').catch(() => ({ data: { salles: [] } })),
+        axios.get('https://final-project-go-my-code.vercel.app/reservation/all').catch(() => ({ data: { reservations: [] } })),
+        axios.get('https://final-project-go-my-code.vercel.app/order/all').catch(() => ({ data: { orders: [] } })),
       ]);
 
       setUsers(usersRes.data.users || []);
@@ -87,7 +87,7 @@ const Admin = () => {
   // Order Operations
   const handleConfirmOrder = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/order/confirm/${id}`);
+      await axios.put(`https://final-project-go-my-code.vercel.app/order/confirm/${id}`);
       setSuccessMsg('Order confirmed!');
       setPing(!ping);
     } catch (error) { console.error(error); }
@@ -95,7 +95,7 @@ const Admin = () => {
 
   const handleDeliverOrder = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/order/deliver/${id}`);
+      await axios.put(`https://final-project-go-my-code.vercel.app/order/deliver/${id}`);
       setSuccessMsg('Order marked as In Delivery!');
       setPing(!ping);
     } catch (error) { console.error(error); }
@@ -103,7 +103,7 @@ const Admin = () => {
 
   const handleMarkDelivered = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/order/delivered/${id}`);
+      await axios.put(`https://final-project-go-my-code.vercel.app/order/delivered/${id}`);
       setSuccessMsg('Order marked as Delivered!');
       setPing(!ping);
     } catch (error) { console.error(error); }
@@ -112,7 +112,7 @@ const Admin = () => {
   const handleDeleteOrder = async (id) => {
     if (window.confirm('Delete this order?')) {
       try {
-        await axios.delete(`http://localhost:5000/order/${id}`);
+        await axios.delete(`https://final-project-go-my-code.vercel.app/order/${id}`);
         setSuccessMsg('Order deleted.');
         fetchAllData();
       } catch (error) { console.error(error); }
@@ -123,7 +123,7 @@ const Admin = () => {
   const handleDeleteCoach = async (id) => {
     if (window.confirm('Are you sure you want to delete this coach?')) {
       try {
-        await axios.delete(`http://localhost:5000/coach/${id}`);
+        await axios.delete(`https://final-project-go-my-code.vercel.app/coach/${id}`);
         setSuccessMsg('Coach deleted.');
         setPing(!ping);
       } catch (error) { console.error(error); }
@@ -133,7 +133,7 @@ const Admin = () => {
   const handleDeleteClass = async (id) => {
     if (window.confirm('Are you sure you want to delete this class?')) {
       try {
-        await axios.delete(`http://localhost:5000/classe/${id}`);
+        await axios.delete(`https://final-project-go-my-code.vercel.app/classe/${id}`);
         setSuccessMsg('Class deleted.');
         setPing(!ping);
       } catch (error) { console.error(error); }
@@ -143,7 +143,7 @@ const Admin = () => {
   const handleDeleteProduct = async (id) => {
     if (window.confirm('Are you sure you want to delete this product?')) {
       try {
-        await axios.delete(`http://localhost:5000/shop/${id}`);
+        await axios.delete(`https://final-project-go-my-code.vercel.app/shop/${id}`);
         setSuccessMsg('Product deleted.');
         setPing(!ping);
       } catch (error) { console.error(error); }
@@ -153,7 +153,7 @@ const Admin = () => {
   const handleDeleteSalle = async (id) => {
     if (window.confirm('Delete this gym?')) {
       try {
-        await axios.delete(`http://localhost:5000/salle/${id}`);
+        await axios.delete(`https://final-project-go-my-code.vercel.app/salle/${id}`);
         setSuccessMsg('Gym deleted.');
         setPing(!ping);
       } catch (error) { console.error(error); }
@@ -164,7 +164,7 @@ const Admin = () => {
   const handleDeleteUser = async (id) => {
     if (window.confirm('Are you sure you want to delete this user?')) {
       try {
-        await axios.delete(`http://localhost:5000/auth/${id}`);
+        await axios.delete(`https://final-project-go-my-code.vercel.app/auth/${id}`);
         setSuccessMsg('User deleted successfully!');
         fetchAllData();
       } catch (error) {

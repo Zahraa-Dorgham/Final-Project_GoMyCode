@@ -15,7 +15,7 @@ function EditClass({ classe, coaches, salles, ping, setping }) {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:5000/classe/${classe._id}`, editedClass);
+      await axios.put(`https://final-project-go-my-code.vercel.app/classe/${classe._id}`, editedClass);
       alert("Session mise à jour");
       setping(!ping);
       handleClose();

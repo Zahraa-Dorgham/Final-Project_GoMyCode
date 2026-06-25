@@ -15,7 +15,7 @@ function EditProduct({ product, ping, setping }) {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:5000/shop/${product._id}`, editedProduct);
+      await axios.put(`https://final-project-go-my-code.vercel.app/shop/${product._id}`, editedProduct);
       alert("Produit mis à jour avec succès");
       setping(!ping);
       handleClose();

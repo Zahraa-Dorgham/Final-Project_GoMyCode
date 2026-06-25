@@ -15,7 +15,7 @@ function EditCoach({ coach, salles, ping, setping }) {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:5000/coach/${coach._id}`, editedCoach);
+      await axios.put(`https://final-project-go-my-code.vercel.app/coach/${coach._id}`, editedCoach);
       alert("Coach mis à jour");
       setping(!ping);
       handleClose();

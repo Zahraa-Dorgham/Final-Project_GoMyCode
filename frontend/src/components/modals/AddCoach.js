@@ -17,7 +17,7 @@ function AddCoach({ salles, ping, setping }) {
 
   const handleAdd = async () => {
     try {
-      await axios.post('http://localhost:5000/coach/add', newCoach);
+      await axios.post('https://final-project-go-my-code.vercel.app/coach/add', newCoach);
       alert("Coach ajouté avec succès");
       setping(!ping);
       handleClose();

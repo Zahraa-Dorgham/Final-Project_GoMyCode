@@ -21,7 +21,7 @@ function AddProduct({ ping, setping }) {
 
   const handleAdd = async () => {
     try {
-      await axios.post('http://localhost:5000/shop/add', newproduct);
+      await axios.post('https://final-project-go-my-code.vercel.app/shop/add', newproduct);
       alert("Produit enregistré avec succès");
       setping(!ping);
       handleClose();

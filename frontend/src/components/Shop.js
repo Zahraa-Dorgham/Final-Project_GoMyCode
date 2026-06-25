@@ -92,7 +92,7 @@ function Shop() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/shop/all');
+          const response = await axios.get('https://final-project-go-my-code.vercel.app/shop/all');
         setProducts(response.data.products || []);
       } catch (error) {
         console.log(error);

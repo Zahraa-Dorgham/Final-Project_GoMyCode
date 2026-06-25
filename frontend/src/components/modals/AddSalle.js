@@ -17,7 +17,7 @@ function AddSalle({ ping, setping }) {
 
   const handleAdd = async () => {
     try {
-      await axios.post('http://localhost:5000/salle/add', newSalle);
+      await axios.post('https://final-project-go-my-code.vercel.app/salle/add', newSalle);
       alert("Salle ajoutée");
       setping(!ping);
       handleClose();

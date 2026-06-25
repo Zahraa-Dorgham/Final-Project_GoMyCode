@@ -15,7 +15,7 @@ function EditSalle({ salle, ping, setping }) {
 
   const handleUpdate = async () => {
     try {
-      await axios.put(`http://localhost:5000/salle/${salle._id}`, editedSalle);
+      await axios.put(`https://final-project-go-my-code.vercel.app/salle/${salle._id}`, editedSalle);
       alert("Salle mise à jour");
       setping(!ping);
       handleClose();
