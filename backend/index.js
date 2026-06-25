@@ -16,6 +16,8 @@ app.use(passport.initialize());
 
 //routes
 app.use(express.json());
+app.get("/", (req, res) => res.send("Express on Vercel"));
+
 app.use('/auth', require('./routes/auth'));
 app.use('/salle', require('./routes/sallesdesport'));
 app.use('/coach', require('./routes/coaches'));
